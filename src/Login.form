@@ -42,6 +42,7 @@
                       </Group>
                   </Group>
                   <Component id="Login" alignment="0" max="32767" attributes="0"/>
+                  <Component id="Logout" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace pref="100" max="32767" attributes="0"/>
           </Group>
@@ -64,6 +65,8 @@
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="Login" min="-2" pref="55" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="Logout" min="-2" pref="55" max="-2" attributes="0"/>
               <EmptySpace pref="50" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -99,6 +102,14 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JPasswordField" name="Kullanici_Sifre">
+    </Component>
+    <Component class="javax.swing.JButton" name="Logout">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&#xc7;&#x131;k&#x131;&#x15f;"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="LogoutActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
