@@ -10,11 +10,18 @@ public class PersonelIslemleri extends javax.swing.JFrame {
     /**
      * Creates new form PersonelIslemleri
      */
+    DefaultTableModel model;
     public PersonelIslemleri() {
         
-        DefaultTableModel model;
+        
         initComponents();
+        refreshTable();
+    }
+    
+    public void refreshTable(){
+        
         model=(DefaultTableModel)PersonelTablo.getModel();
+        model.setRowCount(0);
         try {
             ArrayList<Personel> personels = getPersonel();
             for(Personel personel : personels ){
@@ -240,9 +247,10 @@ public class PersonelIslemleri extends javax.swing.JFrame {
             statement.setString(1,personel_adi.getText());
             statement.setString(2,personel_soyadi.getText());
             statement.setString(3,personel_password.getText());
-            statement.setBoolean(4, personel_yetki.isEnabled());
+            statement.setBoolean(4, personel_yetki.isSelected());
                
             int result = statement.executeUpdate();
+            refreshTable();
             
         }catch(SQLException exception){
             DbHelper.showErrorMessage(exception);
