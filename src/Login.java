@@ -16,8 +16,10 @@ public class Login extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         Kullanici_Sifre = new javax.swing.JPasswordField();
         Logout = new javax.swing.JButton();
+        ErrorMessage = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Login");
         setLocation(new java.awt.Point(550, 150));
 
         jLabel1.setText("Kullanıcı Adı:");
@@ -41,6 +43,8 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        ErrorMessage.setForeground(new java.awt.Color(255, 51, 51));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -58,7 +62,8 @@ public class Login extends javax.swing.JFrame {
                             .addComponent(Kullanici_Adi)
                             .addComponent(Kullanici_Sifre)))
                     .addComponent(Login, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Logout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(Logout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ErrorMessage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(100, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -75,10 +80,12 @@ public class Login extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(Kullanici_Sifre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(ErrorMessage)
+                .addGap(18, 18, 18)
                 .addComponent(Login, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Logout, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
 
         pack();
@@ -101,23 +108,32 @@ public class Login extends javax.swing.JFrame {
         {
             connection = dbHelper.getConnection();
             statement = connection.createStatement();
-            //resultSet = statement.executeQuery("select * from admin_details where username='"+username+"' and password='"+password+"'");
-            String selectQuery = "select * from admin where admin_adi='"+username+"' and admin_password='"+password+"'";
+            String selectQuery = "select * from personel where personel_adi='"+username+"' and personel_password='"+password+"'";
             ResultSet resultSet=statement.executeQuery(selectQuery);
             if(resultSet.next()){
-                dispose();
-                AdminPanel adminPanel=new AdminPanel();
-                adminPanel.setVisible(true);
+                boolean yetki = resultSet.getBoolean("personel_yetki");
+                if(yetki == true){
+                    dispose();
+                    AdminPanel adminPanel=new AdminPanel();
+                    adminPanel.setVisible(true);
+                }
+                else if(yetki == false){
+                    dispose();
+                    PersonelPanel personelPanel = new PersonelPanel ();
+                    personelPanel.setVisible(true);
+                }
             }
            else
            {
-                dispose();
+                ErrorMessage.setText("*Kullanıcı adı veya şifre hatalı...");
+                Kullanici_Adi.setText("");
+                Kullanici_Sifre.setText("");
            }                         
         }
         catch(Exception e)
         {
             System.out.println(e.getMessage());
-        }
+        }      
          
     }//GEN-LAST:event_LoginActionPerformed
 
@@ -158,6 +174,7 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel ErrorMessage;
     private javax.swing.JTextField Kullanici_Adi;
     private javax.swing.JPasswordField Kullanici_Sifre;
     private javax.swing.JButton Login;
