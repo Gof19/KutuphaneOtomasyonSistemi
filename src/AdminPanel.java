@@ -26,32 +26,83 @@ public class AdminPanel extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        KitapIslemleri = new javax.swing.JButton();
+        PersonelIslemleri = new javax.swing.JButton();
+        UyeIslemleri = new javax.swing.JButton();
+        Logout = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Admin Panel");
+        setLocation(new java.awt.Point(450, 100));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel1.setText("Admin Page");
+        KitapIslemleri.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/book.png"))); // NOI18N
+        KitapIslemleri.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                KitapIslemleriActionPerformed(evt);
+            }
+        });
+
+        PersonelIslemleri.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/personel.png"))); // NOI18N
+        PersonelIslemleri.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PersonelIslemleriActionPerformed(evt);
+            }
+        });
+
+        UyeIslemleri.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/uye.png"))); // NOI18N
+
+        Logout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/logout_red.png"))); // NOI18N
+        Logout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LogoutActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(100, 100, 100)
-                .addComponent(jLabel1)
-                .addContainerGap(100, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(KitapIslemleri, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(UyeIslemleri, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(PersonelIslemleri)
+                    .addComponent(Logout))
+                .addGap(50, 50, 50))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(100, 100, 100)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
-                .addGap(100, 100, 100))
+                .addGap(50, 50, 50)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(KitapIslemleri)
+                    .addComponent(PersonelIslemleri))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(UyeIslemleri)
+                    .addComponent(Logout))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void LogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutActionPerformed
+        dispose();
+        Login login = new Login ();
+        login.setVisible(true);
+    }//GEN-LAST:event_LogoutActionPerformed
+
+    private void PersonelIslemleriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PersonelIslemleriActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PersonelIslemleriActionPerformed
+
+    private void KitapIslemleriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KitapIslemleriActionPerformed
+       
+    }//GEN-LAST:event_KitapIslemleriActionPerformed
 
     /**
      * @param args the command line arguments
@@ -89,6 +140,9 @@ public class AdminPanel extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton KitapIslemleri;
+    private javax.swing.JButton Logout;
+    private javax.swing.JButton PersonelIslemleri;
+    private javax.swing.JButton UyeIslemleri;
     // End of variables declaration//GEN-END:variables
 }
