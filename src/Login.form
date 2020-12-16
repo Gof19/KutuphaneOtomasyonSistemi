@@ -27,30 +27,25 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="100" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jLabel3" alignment="1" min="-2" pref="254" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel2" min="-2" pref="37" max="-2" attributes="0"/>
-                                  <Component id="jLabel1" min="-2" pref="87" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="Kullanici_Adi" max="32767" attributes="0"/>
-                                  <Component id="Kullanici_Sifre" max="32767" attributes="0"/>
-                              </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="100" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="Login" min="-2" pref="254" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="jLabel3" alignment="0" min="-2" pref="254" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabel2" min="-2" pref="37" max="-2" attributes="0"/>
+                              <Component id="jLabel1" min="-2" pref="87" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="Logout" alignment="0" max="32767" attributes="0"/>
-                          <Component id="ErrorMessage" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="Kullanici_Adi" max="32767" attributes="0"/>
+                              <Component id="Kullanici_Sifre" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
-                      <Component id="Login" min="-2" pref="254" max="-2" attributes="0"/>
+                      <Component id="Logout" alignment="0" max="32767" attributes="0"/>
+                      <Component id="ErrorMessage" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace pref="100" max="32767" attributes="0"/>
@@ -62,7 +57,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
               <Component id="jLabel3" min="-2" pref="188" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="Kullanici_Adi" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -74,11 +69,11 @@
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="ErrorMessage" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="Login" min="-2" pref="55" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="Logout" min="-2" pref="55" max="-2" attributes="0"/>
-              <EmptySpace pref="60" max="32767" attributes="0"/>
+              <EmptySpace pref="50" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
