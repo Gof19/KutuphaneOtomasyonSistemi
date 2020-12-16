@@ -13,8 +13,16 @@ public class PersonelPanel extends javax.swing.JFrame {
     /**
      * Creates new form PersonelPanel
      */
+    String LoginUser;
     public PersonelPanel() {
         initComponents();
+    }
+    public PersonelPanel(String loginUser)
+        {
+            initComponents();
+            this.LoginUser=loginUser;
+            String getValue=ShowPersonel.getText();
+            ShowPersonel.setText("Hoşgeldin "+loginUser);
     }
 
     /**
@@ -29,12 +37,18 @@ public class PersonelPanel extends javax.swing.JFrame {
         KitapIslemleri = new javax.swing.JButton();
         UyeIslemleri = new javax.swing.JButton();
         Logout = new javax.swing.JButton();
+        ShowPersonel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Personel Panel");
         setLocation(new java.awt.Point(300, 150));
 
         KitapIslemleri.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/book.png"))); // NOI18N
+        KitapIslemleri.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                KitapIslemleriActionPerformed(evt);
+            }
+        });
 
         UyeIslemleri.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/uye.png"))); // NOI18N
 
@@ -45,29 +59,40 @@ public class PersonelPanel extends javax.swing.JFrame {
             }
         });
 
+        ShowPersonel.setText("jLabel1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addComponent(KitapIslemleri)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(UyeIslemleri)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Logout)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addComponent(KitapIslemleri)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(UyeIslemleri)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(Logout))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(82, 82, 82)
+                        .addComponent(ShowPersonel)))
                 .addContainerGap(50, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(50, 50, 50)
+                .addGap(16, 16, 16)
+                .addComponent(ShowPersonel)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Logout)
                     .addComponent(UyeIslemleri)
                     .addComponent(KitapIslemleri))
                 .addContainerGap(50, Short.MAX_VALUE))
         );
+
+        ShowPersonel.getAccessibleContext().setAccessibleName("ShowPersonel");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -77,6 +102,13 @@ public class PersonelPanel extends javax.swing.JFrame {
         Login login = new Login ();
         login.setVisible(true);
     }//GEN-LAST:event_LogoutActionPerformed
+
+    private void KitapIslemleriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KitapIslemleriActionPerformed
+        
+        dispose();
+        KitapIslemleri kitapislemleri = new KitapIslemleri();
+        kitapislemleri.setVisible(true);
+    }//GEN-LAST:event_KitapIslemleriActionPerformed
 
     /**
      * @param args the command line arguments
@@ -116,6 +148,7 @@ public class PersonelPanel extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton KitapIslemleri;
     private javax.swing.JButton Logout;
+    private javax.swing.JLabel ShowPersonel;
     private javax.swing.JButton UyeIslemleri;
     // End of variables declaration//GEN-END:variables
 }
