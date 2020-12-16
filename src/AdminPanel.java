@@ -65,33 +65,33 @@ public class AdminPanel extends javax.swing.JFrame {
             }
         });
 
-        ShowAdmin.setText("jLabel1");
+        ShowAdmin.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        ShowAdmin.setText("Hoşgeldin");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(50, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(KitapIslemleri, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(UyeIslemleri, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(PersonelIslemleri)
-                    .addComponent(Logout))
+                    .addComponent(ShowAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(KitapIslemleri, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(UyeIslemleri, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(PersonelIslemleri)
+                            .addComponent(Logout))))
                 .addGap(50, 50, 50))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(83, 83, 83)
-                .addComponent(ShowAdmin)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(16, 16, 16)
+                .addGap(22, 22, 22)
                 .addComponent(ShowAdmin)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(KitapIslemleri)
                     .addComponent(PersonelIslemleri))
@@ -99,7 +99,7 @@ public class AdminPanel extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(UyeIslemleri)
                     .addComponent(Logout))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         ShowAdmin.getAccessibleContext().setAccessibleName("ShowAdmin");
@@ -114,7 +114,9 @@ public class AdminPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_LogoutActionPerformed
 
     private void PersonelIslemleriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PersonelIslemleriActionPerformed
-        // TODO add your handling code here:
+        dispose();
+        PersonelIslemleri personelIslemleri = new PersonelIslemleri ();
+        personelIslemleri.setVisible(true);
     }//GEN-LAST:event_PersonelIslemleriActionPerformed
 
     private void KitapIslemleriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KitapIslemleriActionPerformed

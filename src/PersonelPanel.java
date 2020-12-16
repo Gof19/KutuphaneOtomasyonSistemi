@@ -59,24 +59,23 @@ public class PersonelPanel extends javax.swing.JFrame {
             }
         });
 
-        ShowPersonel.setText("jLabel1");
+        ShowPersonel.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        ShowPersonel.setText("Hoşgeldin");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ShowPersonel, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(50, 50, 50)
                         .addComponent(KitapIslemleri)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(UyeIslemleri)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(Logout))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(82, 82, 82)
-                        .addComponent(ShowPersonel)))
+                        .addComponent(Logout)))
                 .addContainerGap(50, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -89,7 +88,7 @@ public class PersonelPanel extends javax.swing.JFrame {
                     .addComponent(Logout)
                     .addComponent(UyeIslemleri)
                     .addComponent(KitapIslemleri))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         ShowPersonel.getAccessibleContext().setAccessibleName("ShowPersonel");
