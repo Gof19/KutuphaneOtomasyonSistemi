@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class PersonelIslemleri extends javax.swing.JFrame {
@@ -135,6 +136,11 @@ public class PersonelIslemleri extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        PersonelTablo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PersonelTabloMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(PersonelTablo);
 
         personel_adi.setText("jTextField1");
@@ -156,6 +162,11 @@ public class PersonelIslemleri extends javax.swing.JFrame {
         });
 
         jButton2.setText("Personel Güncelle");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Personel Sil");
 
@@ -263,6 +274,41 @@ public class PersonelIslemleri extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_personel_ekleActionPerformed
+
+    private void PersonelTabloMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PersonelTabloMouseClicked
+        
+        
+    }//GEN-LAST:event_PersonelTabloMouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        
+        
+        Connection connection = null;
+        DbHelper DbHelper = new DbHelper();
+        PreparedStatement statement =null;
+        //Personel Güncelle
+        try{
+             String url="jdbc:mysql://localhost:5555/KutuphaneOtomasyon?useSSL=false&serverTimezone=UTC";
+            connection = DbHelper.getConnection();
+            
+            int row = PersonelTablo.getSelectedRow();
+            String value = (PersonelTablo.getModel().getValueAt(row, 0).toString());
+            String query="UPDATE personel SET personel_adi=?, personel_soyadi=?, personel_password=?, personel_yetki=? where id="+value;
+            PreparedStatement pst = connection.prepareStatement(query);
+            pst.setString(1, personel_adi.getText());
+            pst.setString(2, personel_soyadi.getText());
+            pst.setString(3, personel_password.getText());
+            pst.setBoolean(4, personel_yetki.isEnabled());
+            pst.executeUpdate();
+            DefaultTableModel model = (DefaultTableModel)PersonelTablo.getModel();
+            model.setRowCount(0);
+            refreshTable();
+            JOptionPane.showMessageDialog(null, "Güncelleme Başarılı");
+            
+        }catch (Exception e) {
+        }
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
