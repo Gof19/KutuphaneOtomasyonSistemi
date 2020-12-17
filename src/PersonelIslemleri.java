@@ -1,4 +1,5 @@
-import Personel.Personel;
+
+import Personel.*;
 import KutuphaneOtomasyon.DbHelper;
 import java.util.ArrayList;
 import java.sql.*;
@@ -19,7 +20,8 @@ public class PersonelIslemleri extends javax.swing.JFrame {
         initComponents();
         //refreshTable();
     }
-/*
+
+    /*
     public void refreshTable() {
 
         model = (DefaultTableModel) PersonelTablo.getModel();
@@ -34,7 +36,7 @@ public class PersonelIslemleri extends javax.swing.JFrame {
             Logger.getLogger(PersonelIslemleri.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-*/
+     */
     public ArrayList<Personel> getPersonel() throws SQLException {
         Connection connection = null;
         DbHelper DbHelper = new DbHelper();
@@ -55,7 +57,7 @@ public class PersonelIslemleri extends javax.swing.JFrame {
                             resultSet.getString("personel_adi"),
                             resultSet.getString("personel_soyadi"),
                             resultSet.getString("personel_yetki")
-         */
+         
         try {
             connection = DbHelper.getConnection();
             statement = connection.createStatement();
@@ -78,7 +80,7 @@ public class PersonelIslemleri extends javax.swing.JFrame {
             statement.close();
             connection.close();
         }
-
+*/
         return personels;
     }
 
@@ -98,7 +100,7 @@ public class PersonelIslemleri extends javax.swing.JFrame {
         PersonelTablo = new javax.swing.JTable();
         personel_adi = new javax.swing.JTextField();
         personel_soyadi = new javax.swing.JTextField();
-        personel_password = new javax.swing.JTextField();
+        personel_parola = new javax.swing.JTextField();
         personel_ekle = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -153,7 +155,7 @@ public class PersonelIslemleri extends javax.swing.JFrame {
             }
         });
 
-        personel_password.setText("jTextField3");
+        personel_parola.setText("jTextField3");
 
         personel_ekle.setText("Personel Ekle");
         personel_ekle.addActionListener(new java.awt.event.ActionListener() {
@@ -199,7 +201,7 @@ public class PersonelIslemleri extends javax.swing.JFrame {
                 .addGap(48, 48, 48)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(personel_soyadi)
-                    .addComponent(personel_password)
+                    .addComponent(personel_parola)
                     .addComponent(personel_adi)
                     .addComponent(personel_yetki, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
                 .addGap(48, 48, 48)
@@ -232,7 +234,7 @@ public class PersonelIslemleri extends javax.swing.JFrame {
                             .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(personel_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(personel_parola, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -249,31 +251,13 @@ public class PersonelIslemleri extends javax.swing.JFrame {
     }//GEN-LAST:event_personel_soyadiActionPerformed
 
     private void personel_ekleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_personel_ekleActionPerformed
-        Connection connection = null;
-        DbHelper DbHelper = new DbHelper();
-        PreparedStatement statement = null;
-        try {
-            connection = DbHelper.getConnection();
-            String sql = "insert into personel (personel_adi,personel_soyadi,personel_password,personel_yetki) values(?,?,?,?)";
-            statement = connection.prepareStatement(sql);
-            statement.setString(1, personel_adi.getText());
-            statement.setString(2, personel_soyadi.getText());
-            statement.setString(3, personel_password.getText());
-            statement.setBoolean(4, personel_yetki.isSelected());
-
-            int result = statement.executeUpdate();
-            //refreshTable();
-
-        } catch (SQLException exception) {
-            DbHelper.showErrorMessage(exception);
-        } finally {
-            try {
-                statement.close();
-                connection.close();
-            } catch (SQLException ex) {
-
-            }
-        }
+        String ad = personel_adi.getText();
+        String soyad = personel_soyadi.getText();
+        String parola = personel_parola.getText();
+        boolean yetki = personel_yetki.isSelected();
+        PersonelIslemler islemler = new PersonelIslemler();
+        Personel personel = new Personel(ad,soyad,parola,yetki);
+        islemler.Ekle(personel);
     }//GEN-LAST:event_personel_ekleActionPerformed
 
     private void PersonelTabloMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PersonelTabloMouseClicked
@@ -297,7 +281,7 @@ public class PersonelIslemleri extends javax.swing.JFrame {
             PreparedStatement pst = connection.prepareStatement(query);
             pst.setString(1, personel_adi.getText());
             pst.setString(2, personel_soyadi.getText());
-            pst.setString(3, personel_password.getText());
+            pst.setString(3, personel_parola.getText());
             pst.setBoolean(4, personel_yetki.isEnabled());
             pst.executeUpdate();
             DefaultTableModel model = (DefaultTableModel) PersonelTablo.getModel();
@@ -357,7 +341,7 @@ public class PersonelIslemleri extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField personel_adi;
     private javax.swing.JButton personel_ekle;
-    private javax.swing.JTextField personel_password;
+    private javax.swing.JTextField personel_parola;
     private javax.swing.JTextField personel_soyadi;
     private javax.swing.JCheckBox personel_yetki;
     private java.awt.PopupMenu popupMenu1;
