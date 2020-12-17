@@ -2,6 +2,7 @@ package Personel;
 
 public class Personel implements IPersonel {
 
+    private int id;
     private String ad;
     private String soyad;
     private String parola;
@@ -14,9 +15,17 @@ public class Personel implements IPersonel {
         this.yetki = yetki;
     }
 
+    public Personel(int id, String ad, String soyad, String parola, boolean yetki) {
+        this.id = id;
+        this.ad = ad;
+        this.soyad = soyad;
+        this.parola = parola;
+        this.yetki = yetki;
+    }
+
     @Override
     public String getParola() {
-        return this.parola = parola;
+        return this.parola;
     }
 
     @Override
@@ -26,7 +35,7 @@ public class Personel implements IPersonel {
 
     @Override
     public boolean getYetki() {
-        return this.yetki = yetki;
+        return this.yetki;
     }
 
     @Override
@@ -36,7 +45,7 @@ public class Personel implements IPersonel {
 
     @Override
     public String getAd() {
-        return this.ad = ad;
+        return this.ad;
     }
 
     @Override
@@ -46,12 +55,22 @@ public class Personel implements IPersonel {
 
     @Override
     public String getSoyad() {
-        return this.soyad = soyad;
+        return this.soyad;
     }
 
     @Override
     public void setSoyad(String soyad) {
         this.soyad = soyad;
+    }
+
+    @Override
+    public int getId() {
+        return this.id;
+    }
+
+    @Override
+    public void setId(int id) {
+        this.id = id;
     }
 
 }

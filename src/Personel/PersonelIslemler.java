@@ -40,8 +40,27 @@ public class PersonelIslemler implements IPersonelIslemler {
     }
 
     @Override
-    public void Güncelle(Personel personel) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void Güncelle(Personel personel, int id) {
+
+        Connection connection = null;
+        DbHelper DbHelper = new DbHelper();
+        PreparedStatement statement = null;
+        //Personel Güncelle
+        try {
+            String url = "jdbc:mysql://localhost:5555/KutuphaneOtomasyon?useSSL=false&serverTimezone=UTC";
+            connection = DbHelper.getConnection();
+
+            String query = "UPDATE personel SET personel_adi=?, personel_soyadi=?, personel_password=?, personel_yetki=? where id=" + id;
+            PreparedStatement pst = connection.prepareStatement(query);
+            pst.setString(1, personel.getAd());
+            pst.setString(2, personel.getSoyad());
+            pst.setString(3, personel.getParola());
+            pst.setBoolean(4, personel.getYetki());
+            pst.executeUpdate();
+
+        } catch (Exception e) {
+        }
+
     }
 
     @Override

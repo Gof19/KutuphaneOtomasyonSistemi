@@ -6,7 +6,7 @@ public interface IPersonelIslemler {
 
     void Sil(Personel personel);
 
-    void Güncelle(Personel personel);
+    void Güncelle(Personel personel,int id);
 
     void Ara(Personel personel);
 
