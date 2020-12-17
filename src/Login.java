@@ -1,4 +1,7 @@
+
 import java.sql.*;
+import KutuphaneOtomasyon.DbHelper;
+
 public class Login extends javax.swing.JFrame {
 
     public Login() {
@@ -97,51 +100,45 @@ public class Login extends javax.swing.JFrame {
        dispose();
        Anasayfa anasayfa=new Anasayfa();
        anasayfa.setVisible(true);
-        */  
+         */
         String username = Kullanici_Adi.getText();
         String password = Kullanici_Sifre.getText();
         Connection connection = null;
         DbHelper dbHelper = new DbHelper();
         Statement statement = null;
         //ResultSet resultSet = new ResultSet();
-        
-        try
-        {
+
+        try {
             connection = dbHelper.getConnection();
             statement = connection.createStatement();
-            String selectQuery = "select * from personel where personel_adi='"+username+"' and personel_password='"+password+"'";
-            ResultSet resultSet=statement.executeQuery(selectQuery);
-            if(resultSet.next()){
+            String selectQuery = "select * from personel where personel_adi='" + username + "' and personel_password='" + password + "'";
+            ResultSet resultSet = statement.executeQuery(selectQuery);
+            if (resultSet.next()) {
                 boolean yetki = resultSet.getBoolean("personel_yetki");
-                if(yetki == true){
+                if (yetki == true) {
                     dispose();
-                    AdminPanel adminPanel=new AdminPanel(username);
+                    AdminPanel adminPanel = new AdminPanel(username);
                     adminPanel.setVisible(true);
-                }
-                else if(yetki == false){
+                } else if (yetki == false) {
                     dispose();
                     PersonelPanel personelPanel = new PersonelPanel(username);
                     personelPanel.setVisible(true);
                 }
-            }
-           else
-           {
+            } else {
                 ErrorMessage.setText("*Kullanıcı adı veya şifre hatalı...");
                 Kullanici_Adi.setText("");
                 Kullanici_Sifre.setText("");
-           }                         
-        }
-        catch(Exception e)
-        {
+            }
+        } catch (Exception e) {
             System.out.println(e.getMessage());
-        }      
-         
+        }
+
     }//GEN-LAST:event_LoginActionPerformed
 
     private void LogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutActionPerformed
         dispose();
     }//GEN-LAST:event_LogoutActionPerformed
-    
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

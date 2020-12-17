@@ -1,4 +1,5 @@
-
+import Personel.Personel;
+import KutuphaneOtomasyon.DbHelper;
 import java.util.ArrayList;
 import java.sql.*;
 import java.util.logging.Level;
@@ -12,28 +13,28 @@ public class PersonelIslemleri extends javax.swing.JFrame {
      * Creates new form PersonelIslemleri
      */
     DefaultTableModel model;
+
     public PersonelIslemleri() {
-        
-        
+
         initComponents();
-        refreshTable();
+        //refreshTable();
     }
-    
-    public void refreshTable(){
-        
-        model=(DefaultTableModel)PersonelTablo.getModel();
+/*
+    public void refreshTable() {
+
+        model = (DefaultTableModel) PersonelTablo.getModel();
         model.setRowCount(0);
         try {
             ArrayList<Personel> personels = getPersonel();
-            for(Personel personel : personels ){
-            Object[] row = {personel.getId(), personel.getPersonel_adi(),personel.getPersonel_soyadi(),personel.getPersonel_password(),personel.isPersonel_yetki()};
-            model.addRow(row);
+            for (Personel personel : personels) {
+                Object[] row = {personel.getId(), personel.getPersonel_adi(), personel.getPersonel_soyadi(), personel.getPersonel_password(), personel.isPersonel_yetki()};
+                model.addRow(row);
             }
         } catch (SQLException ex) {
             Logger.getLogger(PersonelIslemleri.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+*/
     public ArrayList<Personel> getPersonel() throws SQLException {
         Connection connection = null;
         DbHelper DbHelper = new DbHelper();
@@ -250,64 +251,63 @@ public class PersonelIslemleri extends javax.swing.JFrame {
     private void personel_ekleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_personel_ekleActionPerformed
         Connection connection = null;
         DbHelper DbHelper = new DbHelper();
-       PreparedStatement statement =null;
-        try{
+        PreparedStatement statement = null;
+        try {
             connection = DbHelper.getConnection();
             String sql = "insert into personel (personel_adi,personel_soyadi,personel_password,personel_yetki) values(?,?,?,?)";
             statement = connection.prepareStatement(sql);
-            statement.setString(1,personel_adi.getText());
-            statement.setString(2,personel_soyadi.getText());
-            statement.setString(3,personel_password.getText());
+            statement.setString(1, personel_adi.getText());
+            statement.setString(2, personel_soyadi.getText());
+            statement.setString(3, personel_password.getText());
             statement.setBoolean(4, personel_yetki.isSelected());
-               
+
             int result = statement.executeUpdate();
-            refreshTable();
-            
-        }catch(SQLException exception){
+            //refreshTable();
+
+        } catch (SQLException exception) {
             DbHelper.showErrorMessage(exception);
-        }finally{
+        } finally {
             try {
                 statement.close();
                 connection.close();
             } catch (SQLException ex) {
-                
+
             }
         }
     }//GEN-LAST:event_personel_ekleActionPerformed
 
     private void PersonelTabloMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PersonelTabloMouseClicked
-        
-        
+
+
     }//GEN-LAST:event_PersonelTabloMouseClicked
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
-        
+
         Connection connection = null;
         DbHelper DbHelper = new DbHelper();
-        PreparedStatement statement =null;
+        PreparedStatement statement = null;
         //Personel Güncelle
-        try{
-             String url="jdbc:mysql://localhost:5555/KutuphaneOtomasyon?useSSL=false&serverTimezone=UTC";
+        try {
+            String url = "jdbc:mysql://localhost:5555/KutuphaneOtomasyon?useSSL=false&serverTimezone=UTC";
             connection = DbHelper.getConnection();
-            
+
             int row = PersonelTablo.getSelectedRow();
             String value = (PersonelTablo.getModel().getValueAt(row, 0).toString());
-            String query="UPDATE personel SET personel_adi=?, personel_soyadi=?, personel_password=?, personel_yetki=? where id="+value;
+            String query = "UPDATE personel SET personel_adi=?, personel_soyadi=?, personel_password=?, personel_yetki=? where id=" + value;
             PreparedStatement pst = connection.prepareStatement(query);
             pst.setString(1, personel_adi.getText());
             pst.setString(2, personel_soyadi.getText());
             pst.setString(3, personel_password.getText());
             pst.setBoolean(4, personel_yetki.isEnabled());
             pst.executeUpdate();
-            DefaultTableModel model = (DefaultTableModel)PersonelTablo.getModel();
+            DefaultTableModel model = (DefaultTableModel) PersonelTablo.getModel();
             model.setRowCount(0);
-            refreshTable();
+            //refreshTable();
             JOptionPane.showMessageDialog(null, "Güncelleme Başarılı");
-            
-        }catch (Exception e) {
+
+        } catch (Exception e) {
         }
-        
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
