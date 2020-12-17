@@ -67,7 +67,7 @@
               <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" max="-2" attributes="0">
                   <Component id="personel_ekle" max="32767" attributes="0"/>
-                  <Component id="jButton3" alignment="1" max="32767" attributes="0"/>
+                  <Component id="personel_sil" alignment="1" max="32767" attributes="0"/>
                   <Component id="personel_guncelle" alignment="1" min="-2" pref="132" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
@@ -86,7 +86,7 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="personel_guncelle" min="-2" pref="28" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jButton3" min="-2" pref="28" max="-2" attributes="0"/>
+                      <Component id="personel_sil" min="-2" pref="28" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -198,10 +198,13 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="personel_guncelleActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton3">
+    <Component class="javax.swing.JButton" name="personel_sil">
       <Properties>
         <Property name="text" type="java.lang.String" value="Personel Sil"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="personel_silActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>

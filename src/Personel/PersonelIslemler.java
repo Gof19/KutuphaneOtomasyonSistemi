@@ -35,8 +35,25 @@ public class PersonelIslemler implements IPersonelIslemler {
     }
 
     @Override
-    public void Sil(Personel personel) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void Sil(int id) {
+        Connection connection = null;
+        DbHelper DbHelper = new DbHelper();
+        PreparedStatement statement = null;
+        try {
+            connection = DbHelper.getConnection();
+            String sql = "DELETE FROM personel WHERE id = " + id;
+            statement = connection.prepareStatement(sql);
+            int result = statement.executeUpdate();
+        } catch (SQLException exception) {
+            DbHelper.showErrorMessage(exception);
+        } finally {
+            try {
+                statement.close();
+                connection.close();
+            } catch (SQLException ex) {
+
+            }
+        }
     }
 
     @Override
