@@ -55,8 +55,8 @@ public class KitapIslemler implements IKitapIslemler {
         try {
             //String url = "jdbc:mysql://localhost:5555/KutuphaneOtomasyon?useSSL=false&serverTimezone=UTC";
             connection = DbHelper.getConnection();
-
-            String query = "UPDATE kitap SET kitap_adi=?, kitap_yazari=?, kitap_yayinevi=?, kitap_turu=?, kitap_barkod=?, kitap_rafno=? where id=" + id;
+             System.out.println(id);   
+            String query = "UPDATE kitap SET kitap_adi=?, kitap_yazari=?, kitap_yayinevi=?, kitap_turu=?, kitap_barkod=?, kitap_rafno=? WHERE kitap_id=" +id;
             PreparedStatement pst = connection.prepareStatement(query);
             pst.setString(1, kitap.getAd());
             pst.setString(2, kitap.getYazar());
@@ -67,6 +67,7 @@ public class KitapIslemler implements IKitapIslemler {
             pst.executeUpdate();
 
         } catch (Exception e) {
+            System.out.println(e);
         }
 
        }
