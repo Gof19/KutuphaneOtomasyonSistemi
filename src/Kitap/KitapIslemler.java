@@ -42,7 +42,24 @@ public class KitapIslemler implements IKitapIslemler {
 
     @Override
     public void Sil(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Connection connection = null;
+        DbHelper DbHelper = new DbHelper();
+        PreparedStatement statement = null;
+        try {
+            connection = DbHelper.getConnection();
+            String sql = "DELETE FROM kitap WHERE kitap_id = " + id;
+            statement = connection.prepareStatement(sql);
+            int result = statement.executeUpdate();
+        } catch (SQLException exception) {
+            DbHelper.showErrorMessage(exception);
+        } finally {
+            try {
+                statement.close();
+                connection.close();
+            } catch (SQLException ex) {
+
+            }
+        }
     }
 
     @Override
@@ -74,7 +91,31 @@ public class KitapIslemler implements IKitapIslemler {
 
     @Override
     public ArrayList<Kitap> Ara(String text) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Connection connection = null;
+        DbHelper DbHelper = new DbHelper();
+        Statement statement = null;
+        ArrayList<Kitap> kitaplar = null;
+        try {
+            connection = DbHelper.getConnection();
+            String sql = "SELECT * FROM kitap WHERE kitap_adi LIKE '%" + text + "%' or kitap_yazari LIKE '%" + text + "%' or kitap_yayinevi LIKE '%" + text + "%' or kitap_turu LIKE '%" + text + "%' or kitap_barkod LIKE '%" + text + "%'  or kitap_rafno LIKE '%" + text + "%'";
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            kitaplar = new ArrayList<Kitap>();
+            while (resultSet.next()) {
+                kitaplar.add(new Kitap(
+                        resultSet.getInt("kitap_id"),
+                        resultSet.getString("kitap_adi"),
+                        resultSet.getString("kitap_yazari"),
+                        resultSet.getString("kitap_yayinevi"),
+                        resultSet.getString("kitap_turu"),
+                        resultSet.getString("kitap_barkod"),
+                        resultSet.getString("kitap_rafno")
+                ));
+            }
+        } catch (SQLException exception) {
+            DbHelper.showErrorMessage(exception);
+        }
+        return kitaplar;
     }
 
     @Override
