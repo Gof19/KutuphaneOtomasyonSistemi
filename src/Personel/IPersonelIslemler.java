@@ -1,5 +1,7 @@
 package Personel;
 
+import java.util.ArrayList;
+
 public interface IPersonelIslemler {
 
     void Ekle(Personel personel);
@@ -8,7 +10,7 @@ public interface IPersonelIslemler {
 
     void Güncelle(Personel personel, int id);
 
-    void Ara(Personel personel);
+    ArrayList<Personel> Ara(String text);
 
     void Listele();
 }
