@@ -110,8 +110,30 @@ public class PersonelIslemler implements IPersonelIslemler {
     }
 
     @Override
-    public void Listele() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ArrayList<Personel> Listele() {
+        Connection connection = null;
+        DbHelper DbHelper = new DbHelper();
+        Statement statement = null;
+        //ResultSet ResultSet = new ResultSet();
+        ArrayList<Personel> personels = null;
+        try {
+            connection = DbHelper.getConnection();
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("select * from personel");
+            personels = new ArrayList<Personel>();
+            while (resultSet.next()) {
+                personels.add(new Personel(
+                        resultSet.getInt("id"),
+                        resultSet.getString("personel_adi"),
+                        resultSet.getString("personel_soyadi"),
+                        resultSet.getString("personel_password"),
+                        resultSet.getBoolean("personel_yetki")
+                ));
+            }
+        } catch (SQLException exception) {
+            DbHelper.showErrorMessage(exception);
+        }
+        return personels;
     }
 
 }

@@ -38,37 +38,12 @@ public class PersonelIslemleri extends javax.swing.JFrame {
                 model.addRow(row);
             }
         } catch (Exception e) {
-
         }
     }
 
     public ArrayList<Personel> getPersonel() throws SQLException {
-        Connection connection = null;
-        DbHelper DbHelper = new DbHelper();
-        Statement statement = null;
-        //ResultSet ResultSet = new ResultSet();
-        ArrayList<Personel> personels = null;
-        try {
-            connection = DbHelper.getConnection();
-            statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("select * from personel");
-            personels = new ArrayList<Personel>();
-            while (resultSet.next()) {
-                personels.add(new Personel(
-                        resultSet.getInt("id"),
-                        resultSet.getString("personel_adi"),
-                        resultSet.getString("personel_soyadi"),
-                        resultSet.getString("personel_password"),
-                        resultSet.getBoolean("personel_yetki")
-                ));
-            }
-        } catch (SQLException exception) {
-            DbHelper.showErrorMessage(exception);
-        } finally {
-            statement.close();
-            connection.close();
-        }
-        return personels;
+        PersonelIslemler islemler = new PersonelIslemler();
+        return islemler.Listele();
     }
 
     @SuppressWarnings("unchecked")
@@ -99,6 +74,7 @@ public class PersonelIslemleri extends javax.swing.JFrame {
         popupMenu2.setLabel("popupMenu2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLocation(new java.awt.Point(400, 200));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -275,8 +251,15 @@ public class PersonelIslemleri extends javax.swing.JFrame {
     }//GEN-LAST:event_personel_ekleActionPerformed
 
     private void PersonelTabloMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PersonelTabloMouseClicked
-
-
+        int row = PersonelTablo.getSelectedRow();
+        String ad = (PersonelTablo.getModel().getValueAt(row, 1).toString());
+        String soyad = (PersonelTablo.getModel().getValueAt(row, 2).toString());
+        String parola = (PersonelTablo.getModel().getValueAt(row, 3).toString());
+        boolean yetki = Boolean.parseBoolean(PersonelTablo.getModel().getValueAt(row, 4).toString());
+        personel_adi.setText(ad);
+        personel_soyadi.setText(soyad);
+        personel_parola.setText(parola);
+        personel_yetki.setSelected(yetki);
     }//GEN-LAST:event_PersonelTabloMouseClicked
 
     private void personel_guncelleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_personel_guncelleActionPerformed

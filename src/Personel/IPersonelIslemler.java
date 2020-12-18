@@ -12,5 +12,5 @@ public interface IPersonelIslemler {
 
     ArrayList<Personel> Ara(String text);
 
-    void Listele();
+    ArrayList<Personel> Listele();
 }
