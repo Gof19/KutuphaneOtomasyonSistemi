@@ -1,20 +1,46 @@
 
 import Kitap.*;
 import KutuphaneOtomasyon.DbHelper;
+import Kitap.Kitap;
+import Kitap.KitapIslemler;
 import java.util.ArrayList;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-
+import javax.swing.table.DefaultTableModel;
 
 public class KitapIslemleri extends javax.swing.JFrame {
+
+    DefaultTableModel model;
 
     /**
      * Creates new form KitapIslemleri
      */
     public KitapIslemleri() {
-        initComponents();
+        try {
+            initComponents();
+            refreshTable(this.getKitap());
+        } catch (Exception e) {
+        }
+    }
+
+    public void refreshTable(ArrayList<Kitap> array) {
+        model = (DefaultTableModel) KitapTablo.getModel();
+        model.setRowCount(0);
+        try {
+            ArrayList<Kitap> kitaplar = array;
+            for (Kitap kitap : kitaplar) {
+                Object[] row = {kitap.getId(), kitap.getAd(), kitap.getYazar(), kitap.getYayinevi(), kitap.getTur(), kitap.getBarkod(), kitap.getRafNo()};
+                model.addRow(row);
+            }
+        } catch (Exception e) {
+        }
+    }
+
+    public ArrayList<Kitap> getKitap() throws SQLException {
+        KitapIslemler islemler = new KitapIslemler();
+        return islemler.Listele();
     }
 
     /**
@@ -30,7 +56,7 @@ public class KitapIslemleri extends javax.swing.JFrame {
         kitap_duzenle = new javax.swing.JButton();
         kitap_sil = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        KitapTablo = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -48,6 +74,11 @@ public class KitapIslemleri extends javax.swing.JFrame {
         kitap_rafno = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         kitap_ekle.setText("Kitap Ekle");
         kitap_ekle.addActionListener(new java.awt.event.ActionListener() {
@@ -65,18 +96,33 @@ public class KitapIslemleri extends javax.swing.JFrame {
 
         kitap_sil.setText("Kitap Sil");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        KitapTablo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "Kitap Adı", "Yazarı", "Yayınevi", "Türü", "Barkod No", "Raf No"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                true, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(KitapTablo);
 
         jLabel1.setText("Kitap Adı");
 
@@ -226,14 +272,34 @@ public class KitapIslemleri extends javax.swing.JFrame {
             Kitap kitap = new Kitap(ad, kitap_yazar, kitap_yayin, tur, barkod, rafno);
             islemler.Ekle(kitap);
             JOptionPane.showMessageDialog(null, "Ekleme Başarılı");
-            //refreshTable(this.getPersonel());
+            refreshTable(this.getKitap());
             //clearTextBox();
         } catch (Exception e) {
+
         }
     }//GEN-LAST:event_kitap_ekleActionPerformed
 
     private void kitap_duzenleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kitap_duzenleActionPerformed
-        // TODO add your handling code here:
+
+        try {
+            int row = KitapTablo.getSelectedRow();
+            String value = (KitapTablo.getModel().getValueAt(row, 0).toString());
+            String ad = kitap_adi.getText();
+            String kitap_yazar = kitap_yazari.getText();
+            String kitap_yayin = kitap_yayinevi.getText();
+            String tur = kitap_turu.getText();
+            String barkod = kitap_barkod.getText();
+            String rafno = kitap_rafno.getText();
+            KitapIslemler islemler = new KitapIslemler();
+            Kitap kitap = new Kitap(ad, kitap_yazar, kitap_yayin, tur, barkod, rafno);
+            islemler.Güncelle(kitap, Integer.parseInt(value));
+            DefaultTableModel model = (DefaultTableModel) KitapTablo.getModel();
+            model.setRowCount(0);
+            JOptionPane.showMessageDialog(null, "Güncelleme Başarılı");
+            refreshTable(this.getKitap());
+        } catch (SQLException e) {
+
+        }
     }//GEN-LAST:event_kitap_duzenleActionPerformed
 
     private void kitap_adiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kitap_adiActionPerformed
@@ -243,6 +309,13 @@ public class KitapIslemleri extends javax.swing.JFrame {
     private void kitap_araActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kitap_araActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_kitap_araActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        try {
+            refreshTable(this.getKitap());
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments
@@ -280,6 +353,7 @@ public class KitapIslemleri extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable KitapTablo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -288,7 +362,6 @@ public class KitapIslemleri extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField kitap_adi;
     private javax.swing.JButton kitap_ara;
