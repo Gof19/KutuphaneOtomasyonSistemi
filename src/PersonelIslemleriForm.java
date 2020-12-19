@@ -26,6 +26,7 @@ public class PersonelIslemleriForm extends javax.swing.JFrame {
         personel_soyadi.setText("");
         personel_parola.setText("");
         personel_yetki.setSelected(false);
+        personel_araText.setText("");
     }
 
     public void refreshTable(ArrayList<Personel> array) {
@@ -66,7 +67,7 @@ public class PersonelIslemleriForm extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         personel_yetki = new javax.swing.JCheckBox();
-        ara = new javax.swing.JTextField();
+        personel_araText = new javax.swing.JTextField();
         personel_ara = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -155,9 +156,9 @@ public class PersonelIslemleriForm extends javax.swing.JFrame {
             }
         });
 
-        ara.addActionListener(new java.awt.event.ActionListener() {
+        personel_araText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                araActionPerformed(evt);
+                personel_araTextActionPerformed(evt);
             }
         });
 
@@ -211,7 +212,7 @@ public class PersonelIslemleriForm extends javax.swing.JFrame {
                                         .addComponent(personel_guncelle, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGap(49, 49, 49)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(ara)
+                                        .addComponent(personel_araText)
                                         .addComponent(personel_ara, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addGap(50, 50, 50))))
         );
@@ -246,7 +247,7 @@ public class PersonelIslemleriForm extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ara, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(personel_araText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(40, 40, 40)
                                 .addComponent(personel_ara, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -272,12 +273,17 @@ public class PersonelIslemleriForm extends javax.swing.JFrame {
             String soyad = personel_soyadi.getText();
             String parola = personel_parola.getText();
             boolean yetki = personel_yetki.isSelected();
-            PersonelIslemler islemler = new PersonelIslemler();
-            Personel personel = new Personel(ad, soyad, parola, yetki);
-            islemler.Ekle(personel);
-            JOptionPane.showMessageDialog(null, "Ekleme Başarılı");
-            refreshTable(this.getPersonel());
-            clearTextBox();
+            if (personel_adi.getText().isEmpty() || personel_parola.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Lütfen tüm alanları doldurunuz.");
+            } else {
+                PersonelIslemler islemler = new PersonelIslemler();
+                Personel personel = new Personel(ad, soyad, parola, yetki);
+                islemler.Ekle(personel);
+                JOptionPane.showMessageDialog(null, "Ekleme Başarılı");
+                refreshTable(this.getPersonel());
+                clearTextBox();
+            }
+
         } catch (Exception e) {
         }
     }//GEN-LAST:event_personel_ekleActionPerformed
@@ -295,21 +301,26 @@ public class PersonelIslemleriForm extends javax.swing.JFrame {
     }//GEN-LAST:event_PersonelTabloMouseClicked
 
     private void personel_guncelleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_personel_guncelleActionPerformed
-        try {
-            int row = PersonelTablo.getSelectedRow();
-            String value = (PersonelTablo.getModel().getValueAt(row, 0).toString());
-            String ad = personel_adi.getText();
-            String soyad = personel_soyadi.getText();
-            String parola = personel_parola.getText();
-            boolean yetki = personel_yetki.isSelected();
-            PersonelIslemler islemler = new PersonelIslemler();
-            Personel personel = new Personel(ad, soyad, parola, yetki);
-            islemler.Güncelle(personel, Integer.parseInt(value));
-            DefaultTableModel model = (DefaultTableModel) PersonelTablo.getModel();
-            model.setRowCount(0);
-            JOptionPane.showMessageDialog(null, "Güncelleme Başarılı");
-            refreshTable(this.getPersonel());
-        } catch (Exception e) {
+        if (PersonelTablo.getSelectionModel().isSelectionEmpty()) {
+            JOptionPane.showMessageDialog(null, "Lütfen satır seçiniz..");
+        } else {
+            try {
+                int row = PersonelTablo.getSelectedRow();
+                String value = (PersonelTablo.getModel().getValueAt(row, 0).toString());
+                String ad = personel_adi.getText();
+                String soyad = personel_soyadi.getText();
+                String parola = personel_parola.getText();
+                boolean yetki = personel_yetki.isSelected();
+                PersonelIslemler islemler = new PersonelIslemler();
+                Personel personel = new Personel(ad, soyad, parola, yetki);
+                islemler.Güncelle(personel, Integer.parseInt(value));
+                DefaultTableModel model = (DefaultTableModel) PersonelTablo.getModel();
+                model.setRowCount(0);
+                JOptionPane.showMessageDialog(null, "Güncelleme Başarılı");
+                refreshTable(this.getPersonel());
+                clearTextBox();
+            } catch (Exception e) {
+            }
         }
     }//GEN-LAST:event_personel_guncelleActionPerformed
 
@@ -321,25 +332,31 @@ public class PersonelIslemleriForm extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowActivated
 
     private void personel_silActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_personel_silActionPerformed
-        try {
-            int row = PersonelTablo.getSelectedRow();
-            String value = (PersonelTablo.getModel().getValueAt(row, 0).toString());
-            PersonelIslemler islemler = new PersonelIslemler();
-            islemler.Sil(Integer.parseInt(value));
-            DefaultTableModel model = (DefaultTableModel) PersonelTablo.getModel();
-            model.setRowCount(0);
-            JOptionPane.showMessageDialog(null, "Silme Başarılı");
-            refreshTable(this.getPersonel());
-        } catch (Exception e) {
+        if (PersonelTablo.getSelectionModel().isSelectionEmpty()) {
+            JOptionPane.showMessageDialog(null, "Lütfen satır seçiniz..");
+        } else {
+            try {
+                int row = PersonelTablo.getSelectedRow();
+                String value = (PersonelTablo.getModel().getValueAt(row, 0).toString());
+                PersonelIslemler islemler = new PersonelIslemler();
+                islemler.Sil(Integer.parseInt(value));
+                DefaultTableModel model = (DefaultTableModel) PersonelTablo.getModel();
+                model.setRowCount(0);
+                JOptionPane.showMessageDialog(null, "Silme Başarılı");
+                refreshTable(this.getPersonel());
+                clearTextBox();
+            } catch (Exception e) {
+            }
         }
     }//GEN-LAST:event_personel_silActionPerformed
 
     private void personel_araActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_personel_araActionPerformed
         try {
-            String text = ara.getText();
+            String text = personel_araText.getText();
             PersonelIslemler islemler = new PersonelIslemler();
             //JOptionPane.showMessageDialog(null, "Silme Başarılı");
             refreshTable(islemler.Ara(text));
+            clearTextBox();
         } catch (Exception e) {
         }
     }//GEN-LAST:event_personel_araActionPerformed
@@ -348,9 +365,9 @@ public class PersonelIslemleriForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_personel_yetkiActionPerformed
 
-    private void araActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_araActionPerformed
+    private void personel_araTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_personel_araTextActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_araActionPerformed
+    }//GEN-LAST:event_personel_araTextActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -393,7 +410,6 @@ public class PersonelIslemleriForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable PersonelTablo;
-    private javax.swing.JTextField ara;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -405,6 +421,7 @@ public class PersonelIslemleriForm extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField personel_adi;
     private javax.swing.JButton personel_ara;
+    private javax.swing.JTextField personel_araText;
     private javax.swing.JButton personel_ekle;
     private javax.swing.JButton personel_guncelle;
     private javax.swing.JTextField personel_parola;
