@@ -20,8 +20,9 @@ public class PersonelPanel extends javax.swing.JFrame {
 
         KitapIslemleri = new javax.swing.JButton();
         UyeIslemleri = new javax.swing.JButton();
-        Logout = new javax.swing.JButton();
+        EmanetIslem = new javax.swing.JButton();
         ShowPersonel = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Personel Panel");
@@ -41,43 +42,58 @@ public class PersonelPanel extends javax.swing.JFrame {
             }
         });
 
-        Logout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/logout_red.png"))); // NOI18N
-        Logout.addActionListener(new java.awt.event.ActionListener() {
+        EmanetIslem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/logout_red.png"))); // NOI18N
+        EmanetIslem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                LogoutActionPerformed(evt);
+                EmanetIslemActionPerformed(evt);
             }
         });
 
         ShowPersonel.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         ShowPersonel.setText("Hoşgeldin");
 
+        jButton2.setBackground(new java.awt.Color(255, 0, 0));
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("Çıkış");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ShowPersonel, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(50, 50, 50)
                         .addComponent(KitapIslemleri)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(UyeIslemleri)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(Logout)))
-                .addContainerGap(50, Short.MAX_VALUE))
+                        .addComponent(EmanetIslem))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(ShowPersonel, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(50, 50, 50))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(ShowPersonel)
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ShowPersonel)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Logout)
+                    .addComponent(EmanetIslem)
                     .addComponent(UyeIslemleri)
                     .addComponent(KitapIslemleri))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         ShowPersonel.getAccessibleContext().setAccessibleName("ShowPersonel");
@@ -85,24 +101,30 @@ public class PersonelPanel extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void LogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutActionPerformed
-        dispose();
-        Login login = new Login();
-        login.setVisible(true);
-    }//GEN-LAST:event_LogoutActionPerformed
+    private void EmanetIslemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmanetIslemActionPerformed
+        
+        KitapEmanetForm emanet = new KitapEmanetForm();
+        emanet.setVisible(true);
+    }//GEN-LAST:event_EmanetIslemActionPerformed
 
     private void KitapIslemleriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KitapIslemleriActionPerformed
 
-        dispose();
+        
         KitapIslemleriForm kitapislemleri = new KitapIslemleriForm();
         kitapislemleri.setVisible(true);
     }//GEN-LAST:event_KitapIslemleriActionPerformed
 
     private void UyeIslemleriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UyeIslemleriActionPerformed
-        dispose();
+        
         UyeIslemleriForm uyeislemleri = new UyeIslemleriForm();
         uyeislemleri.setVisible(true);
     }//GEN-LAST:event_UyeIslemleriActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        dispose();
+        Login login = new Login();
+        login.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -137,9 +159,10 @@ public class PersonelPanel extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton EmanetIslem;
     private javax.swing.JButton KitapIslemleri;
-    private javax.swing.JButton Logout;
     private javax.swing.JLabel ShowPersonel;
     private javax.swing.JButton UyeIslemleri;
+    private javax.swing.JButton jButton2;
     // End of variables declaration//GEN-END:variables
 }
