@@ -8,14 +8,14 @@ public interface IUye extends IInsan {
 
     int getTel();
 
-    void setTel();
+    void setTel(int tel);
 
     String getMail();
 
-    void setMail();
+    void setMail(String mail);
 
     int getOkitap();
 
-    void setOkitap();
+    void setOkitap(int okitap);
 
 }

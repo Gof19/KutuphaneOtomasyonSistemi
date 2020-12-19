@@ -53,7 +53,7 @@ public class Uye implements IUye {
     }
 
     @Override
-    public void setTel() {
+    public void setTel(int tel) {
         this.tel = tel;
     }
 
@@ -63,7 +63,7 @@ public class Uye implements IUye {
     }
 
     @Override
-    public void setMail() {
+    public void setMail(String mail) {
         this.mail = mail;
     }
 
@@ -73,7 +73,7 @@ public class Uye implements IUye {
     }
 
     @Override
-    public void setOkitap() {
+    public void setOkitap(int okitap) {
         this.okitap = okitap;
     }
 
