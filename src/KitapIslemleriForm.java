@@ -29,7 +29,7 @@ public class KitapIslemleriForm extends javax.swing.JFrame {
         kitap_turu.setText("");
         kitap_barkod.setText("");
         kitap_rafno.setText("");
-
+        kitap_Ara.setText("");
     }
 
     public void refreshTable(ArrayList<Kitap> array) {
@@ -136,6 +136,11 @@ public class KitapIslemleriForm extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        KitapTablo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                KitapTabloMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(KitapTablo);
 
         jLabel1.setText("Kitap Adı");
@@ -189,34 +194,34 @@ public class KitapIslemleriForm extends javax.swing.JFrame {
                                 .addGap(0, 50, Short.MAX_VALUE)))
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel7))
-                                .addGap(44, 44, 44)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(kitap_barkod)
-                                    .addComponent(kitap_adi)
-                                    .addComponent(kitap_yazari)
-                                    .addComponent(kitap_yayinevi)
-                                    .addComponent(kitap_turu)
-                                    .addComponent(kitap_rafno, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(kitap_ekle, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(kitap_sil, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(kitap_duzenle, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(kitap_Ara)
-                                    .addComponent(kitap_ara, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE))))
+                        .addComponent(jSeparator2)
+                        .addGap(57, 57, 57))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel7))
+                        .addGap(44, 44, 44)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(kitap_barkod)
+                            .addComponent(kitap_adi)
+                            .addComponent(kitap_yazari)
+                            .addComponent(kitap_yayinevi)
+                            .addComponent(kitap_turu)
+                            .addComponent(kitap_rafno, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(kitap_ekle, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(kitap_sil, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(kitap_duzenle, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(kitap_Ara)
+                            .addComponent(kitap_ara, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE))
                         .addGap(57, 57, 57))))
         );
         layout.setVerticalGroup(
@@ -229,26 +234,12 @@ public class KitapIslemleriForm extends javax.swing.JFrame {
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 1, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(67, 67, 67)
-                                    .addComponent(kitap_duzenle, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(kitap_Ara, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(kitap_ara, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(kitap_sil, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(kitap_ekle, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
                             .addComponent(kitap_adi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -271,7 +262,22 @@ public class KitapIslemleriForm extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(kitap_rafno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7))))
+                            .addComponent(jLabel7)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(67, 67, 67)
+                                        .addComponent(kitap_duzenle, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(kitap_Ara, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(kitap_ara, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(kitap_sil, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(kitap_ekle, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(30, 30, 30))
         );
 
@@ -281,45 +287,53 @@ public class KitapIslemleriForm extends javax.swing.JFrame {
     private void kitap_ekleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kitap_ekleActionPerformed
 
         try {
-
             String ad = kitap_adi.getText();
             String kitap_yazar = kitap_yazari.getText();
             String kitap_yayin = kitap_yayinevi.getText();
             String tur = kitap_turu.getText();
             String barkod = kitap_barkod.getText();
             String rafno = kitap_rafno.getText();
-            KitapIslemler islemler = new KitapIslemler();
-            Kitap kitap = new Kitap(ad, kitap_yazar, kitap_yayin, tur, barkod, rafno);
-            islemler.Ekle(kitap);
-            JOptionPane.showMessageDialog(null, "Ekleme Başarılı");
-            refreshTable(this.getKitap());
-            clearTextBox();
+            if (kitap_adi.getText().isEmpty() || kitap_yazari.getText().isEmpty() || kitap_yayinevi.getText().isEmpty() || kitap_turu.getText().isEmpty() || kitap_barkod.getText().isEmpty() || kitap_rafno.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Lütfen tüm alanları doldurunuz.");
+            } else {
+                KitapIslemler islemler = new KitapIslemler();
+                Kitap kitap = new Kitap(ad, kitap_yazar, kitap_yayin, tur, barkod, rafno);
+                islemler.Ekle(kitap);
+                JOptionPane.showMessageDialog(null, "Ekleme Başarılı");
+                refreshTable(this.getKitap());
+                clearTextBox();
+            }
         } catch (Exception e) {
 
         }
+
+
     }//GEN-LAST:event_kitap_ekleActionPerformed
 
     private void kitap_duzenleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kitap_duzenleActionPerformed
+        if (KitapTablo.getSelectionModel().isSelectionEmpty()) {
+            JOptionPane.showMessageDialog(null, "Lütfen satır seçiniz..");
+        } else {
+            try {
+                int row = KitapTablo.getSelectedRow();
+                String value = (KitapTablo.getModel().getValueAt(row, 0).toString());
+                String ad = kitap_adi.getText();
+                String kitap_yazar = kitap_yazari.getText();
+                String kitap_yayin = kitap_yayinevi.getText();
+                String tur = kitap_turu.getText();
+                String barkod = kitap_barkod.getText();
+                String rafno = kitap_rafno.getText();
+                KitapIslemler islemler = new KitapIslemler();
+                Kitap kitap = new Kitap(ad, kitap_yazar, kitap_yayin, tur, barkod, rafno);
+                islemler.Güncelle(kitap, Integer.parseInt(value));
+                DefaultTableModel model = (DefaultTableModel) KitapTablo.getModel();
+                model.setRowCount(0);
+                JOptionPane.showMessageDialog(null, "Güncelleme Başarılı");
+                refreshTable(this.getKitap());
+                clearTextBox();
+            } catch (SQLException e) {
 
-        try {
-            int row = KitapTablo.getSelectedRow();
-            String value = (KitapTablo.getModel().getValueAt(row, 0).toString());
-            String ad = kitap_adi.getText();
-            String kitap_yazar = kitap_yazari.getText();
-            String kitap_yayin = kitap_yayinevi.getText();
-            String tur = kitap_turu.getText();
-            String barkod = kitap_barkod.getText();
-            String rafno = kitap_rafno.getText();
-            KitapIslemler islemler = new KitapIslemler();
-            Kitap kitap = new Kitap(ad, kitap_yazar, kitap_yayin, tur, barkod, rafno);
-            islemler.Güncelle(kitap, Integer.parseInt(value));
-            DefaultTableModel model = (DefaultTableModel) KitapTablo.getModel();
-            model.setRowCount(0);
-            JOptionPane.showMessageDialog(null, "Güncelleme Başarılı");
-            refreshTable(this.getKitap());
-            clearTextBox();
-        } catch (SQLException e) {
-
+            }
         }
     }//GEN-LAST:event_kitap_duzenleActionPerformed
 
@@ -330,9 +344,14 @@ public class KitapIslemleriForm extends javax.swing.JFrame {
     private void kitap_araActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kitap_araActionPerformed
         try {
             String text = kitap_Ara.getText();
-            KitapIslemler islemler = new KitapIslemler();
-            //JOptionPane.showMessageDialog(null, "Silme Başarılı");
-            refreshTable(islemler.Ara(text));
+            if (kitap_Ara.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Lütfen aranacak kelimeyi giriniz.");
+            } else {
+                KitapIslemler islemler = new KitapIslemler();
+                refreshTable(islemler.Ara(text));
+                clearTextBox();
+            }
+
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -347,18 +366,39 @@ public class KitapIslemleriForm extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowActivated
 
     private void kitap_silActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kitap_silActionPerformed
-        try {
-            int row = KitapTablo.getSelectedRow();
-            String value = (KitapTablo.getModel().getValueAt(row, 0).toString());
-            KitapIslemler islemler = new KitapIslemler();
-            islemler.Sil(Integer.parseInt(value));
-            DefaultTableModel model = (DefaultTableModel) KitapTablo.getModel();
-            model.setRowCount(0);
-            JOptionPane.showMessageDialog(null, "Silme Başarılı");
-            refreshTable(this.getKitap());
-        } catch (Exception e) {
+        if (KitapTablo.getSelectionModel().isSelectionEmpty()) {
+            JOptionPane.showMessageDialog(null, "Lütfen satır seçiniz..");
+        } else {
+            try {
+                int row = KitapTablo.getSelectedRow();
+                String value = (KitapTablo.getModel().getValueAt(row, 0).toString());
+                KitapIslemler islemler = new KitapIslemler();
+                islemler.Sil(Integer.parseInt(value));
+                DefaultTableModel model = (DefaultTableModel) KitapTablo.getModel();
+                model.setRowCount(0);
+                JOptionPane.showMessageDialog(null, "Silme Başarılı");
+                refreshTable(this.getKitap());
+            } catch (Exception e) {
+            }
         }
+
     }//GEN-LAST:event_kitap_silActionPerformed
+
+    private void KitapTabloMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_KitapTabloMouseClicked
+        int row = KitapTablo.getSelectedRow();
+        String kitapAdi = (KitapTablo.getModel().getValueAt(row, 1).toString());
+        String kitapYazari = (KitapTablo.getModel().getValueAt(row, 2).toString());
+        String kitapYayinevi = (KitapTablo.getModel().getValueAt(row, 3).toString());
+        String kitapTuru = (KitapTablo.getModel().getValueAt(row, 4).toString());
+        String kitapBarkod = (KitapTablo.getModel().getValueAt(row, 5).toString());
+        String kitapRafNO = (KitapTablo.getModel().getValueAt(row, 6).toString());
+        kitap_adi.setText(kitapAdi);
+        kitap_yazari.setText(kitapYazari);
+        kitap_yayinevi.setText(kitapYayinevi);
+        kitap_turu.setText(kitapTuru);
+        kitap_barkod.setText(kitapBarkod);
+        kitap_rafno.setText(kitapRafNO);
+    }//GEN-LAST:event_KitapTabloMouseClicked
 
     /**
      * @param args the command line arguments
