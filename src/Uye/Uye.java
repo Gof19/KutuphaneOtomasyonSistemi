@@ -42,11 +42,10 @@ public class Uye implements IUye {
         return this.soyad;
     }
 
-  @Override
+    @Override
     public void setSoyad(String soyad) {
         this.soyad = soyad;
     }
-
 
     @Override
     public int getTel() {
@@ -55,7 +54,7 @@ public class Uye implements IUye {
 
     @Override
     public void setTel() {
-        this.tel=tel;
+        this.tel = tel;
     }
 
     @Override
@@ -70,7 +69,7 @@ public class Uye implements IUye {
 
     @Override
     public int getOkitap() {
-           return this.okitap;
+        return this.okitap;
     }
 
     @Override
@@ -85,9 +84,7 @@ public class Uye implements IUye {
 
     @Override
     public void setAd(String ad) {
-            this.ad=ad;
+        this.ad = ad;
     }
-
-    
 
 }

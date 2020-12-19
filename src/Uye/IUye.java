@@ -6,10 +6,6 @@ public interface IUye extends IInsan {
 
     void setId(int id);
 
-    String getSoyad();
-
-    void setSoyad();
-
     int getTel();
 
     void setTel();

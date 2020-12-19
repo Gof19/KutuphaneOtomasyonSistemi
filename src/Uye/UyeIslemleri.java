@@ -16,11 +16,11 @@ public class UyeIslemleri implements IUyeIslemleri {
             connection = DbHelper.getConnection();
             String sql = "insert into uye (uye_adi,uye_soyadi,uye_tel,uye_mail,uye_okitap) values(?,?,?,?,?)";
             statement = connection.prepareStatement(sql);
-            statement.setString(1, uye.getAd());
-            statement.setString(2, uye.getSoyad());
-            statement.setInt(3, uye.getTel());
-            statement.setString(4, uye.getMail());
-            statement.setInt(5,uye.getOkitap());
+            statement.setString  (1, uye.getAd());
+            statement.setString  (2, uye.getSoyad());
+            statement.setInt    (3, uye.getTel());
+            statement.setString (4, uye.getMail());
+            statement.setInt    (5,uye.getOkitap());
 
             int result = statement.executeUpdate();
             //refreshTable();
@@ -62,17 +62,80 @@ public class UyeIslemleri implements IUyeIslemleri {
 
     @Override
     public void Güncelle(Uye uye, int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+          Connection connection = null;
+        DbHelper DbHelper = new DbHelper();
+        PreparedStatement statement = null;
+        //uye Güncelle
+        try {
+            String url = "jdbc:mysql://localhost:5555/KutuphaneOtomasyon?useSSL=false&serverTimezone=UTC";
+            connection = DbHelper.getConnection();
+
+            String query = "UPDATE uye SET uye_adi=?, uye_soyadi=?, uye_tel=?, uye_mail=?, uye_okitap=? where id=" + id;
+            PreparedStatement pst = connection.prepareStatement(query);
+            pst.setString(1, uye.getAd());
+            pst.setString(2, uye.getSoyad());
+            pst.setInt(3, uye.getTel());
+            pst.setString(4, uye.getMail());
+            pst.setInt(5,uye.getOkitap());
+            pst.executeUpdate();
+
+        } catch (Exception e) {
+        }
     }
 
     @Override
     public ArrayList<Uye> Ara(String text) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       
+        Connection connection = null;
+        DbHelper DbHelper = new DbHelper();
+        Statement statement = null;
+        ArrayList<Uye> uyes = null;
+        try {
+            connection = DbHelper.getConnection();
+            String sql = "SELECT * FROM uye WHERE uye_adi LIKE '%" + text + "%' or uye_soyadi LIKE '%" + text + "%'";
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            uyes = new ArrayList<Uye>();
+            while (resultSet.next()) {
+                uyes.add(new Uye(
+                        resultSet.getString("uye_adi"),
+                        resultSet.getString("uye_soyadi"),
+                        resultSet.getInt("uye_tel"),
+                        resultSet.getString("uye_mail"),
+                        resultSet.getInt("uye_okitap")
+                ));
+            }
+        } catch (SQLException exception) {
+            DbHelper.showErrorMessage(exception);
+        }
+        return uyes;
     }
 
     @Override
     public ArrayList<Uye> Listele() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Connection connection = null;
+        DbHelper DbHelper = new DbHelper();
+        Statement statement = null;
+        //ResultSet ResultSet = new ResultSet();
+        ArrayList<Uye> uyes = null;
+        try {
+            connection = DbHelper.getConnection();
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("select * from uye");
+            uyes = new ArrayList<Uye>();
+            while (resultSet.next()) {
+                uyes.add(new Uye(
+                        resultSet.getString("uye_adi"),
+                        resultSet.getString("uye_soyadi"),
+                        resultSet.getInt("uye_tel"),
+                        resultSet.getString("uye_mail"),
+                        resultSet.getInt("uye_okitap")
+                ));
+            }
+        } catch (SQLException exception) {
+            DbHelper.showErrorMessage(exception);
+        }
+        return uyes;
     }
 
 }
