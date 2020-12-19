@@ -23,28 +23,204 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="135" max="-2" attributes="0"/>
-              <Component id="jLabel1" min="-2" pref="128" max="-2" attributes="0"/>
-              <EmptySpace pref="137" max="32767" attributes="0"/>
+          <Group type="102" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+                      <Component id="jScrollPane1" min="-2" pref="752" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="146" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="uye_soyad" min="-2" pref="71" max="-2" attributes="0"/>
+                          <Component id="uye_ad" min="-2" pref="71" max="-2" attributes="0"/>
+                          <Component id="uye_tel" alignment="1" min="-2" pref="71" max="-2" attributes="0"/>
+                          <Component id="uye_mail" alignment="1" min="-2" pref="71" max="-2" attributes="0"/>
+                          <Component id="uye_okitap" alignment="1" min="-2" pref="71" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="uye_sil" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="uye_guncelle" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="199" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="uye_aratext" min="-2" pref="71" max="-2" attributes="0"/>
+                                  <Component id="uye_ara" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Component id="uye_ekle" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+              </Group>
+              <EmptySpace pref="56" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="106" max="-2" attributes="0"/>
-              <Component id="jLabel1" min="-2" pref="69" max="-2" attributes="0"/>
-              <EmptySpace pref="125" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+              <Component id="jScrollPane1" min="-2" pref="275" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="uye_ad" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="uye_ekle" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="uye_soyad" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="uye_guncelle" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="uye_tel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="uye_sil" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="uye_mail" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="uye_okitap" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="73" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="uye_aratext" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="uye_ara" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="116" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="jLabel1">
+    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTable" name="UyeTablo">
+          <Properties>
+            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+              <Table columnCount="6" rowCount="4">
+                <Column editable="false" title="Uye ID" type="java.lang.Integer"/>
+                <Column editable="false" title="Uye Ad" type="java.lang.String"/>
+                <Column editable="false" title="Uye Soyad" type="java.lang.String"/>
+                <Column editable="false" title="Uye Tel" type="java.lang.Integer"/>
+                <Column editable="false" title="Uye Mail" type="java.lang.String"/>
+                <Column editable="false" title="Okudu&#x11f;u Kitap S." type="java.lang.Integer"/>
+              </Table>
+            </Property>
+            <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+              <TableColumnModel selectionModel="0">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+              </TableColumnModel>
+            </Property>
+            <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+              <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
+            </Property>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Component class="javax.swing.JTextField" name="uye_ad">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Uye &#x130;slemleri"/>
+        <Property name="text" type="java.lang.String" value="uye_ad"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="uye_soyad">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="uye_soyad"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="uye_tel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="uye_tel"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="uye_mail">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="uye_mail"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="uye_okitap">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="uye_okitap"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="uye_guncelle">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="uye_guncelle"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="uye_guncelleActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="uye_sil">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="uye_sil"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="uye_silActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="uye_ara">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="uye_ara"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="uye_araActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="uye_aratext">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="uye_aratext"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="uye_ekle">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="uye_ekle"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="uye_ekleActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
