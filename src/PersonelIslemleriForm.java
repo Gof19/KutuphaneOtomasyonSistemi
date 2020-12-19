@@ -353,10 +353,13 @@ public class PersonelIslemleriForm extends javax.swing.JFrame {
     private void personel_araActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_personel_araActionPerformed
         try {
             String text = personel_araText.getText();
-            PersonelIslemler islemler = new PersonelIslemler();
-            //JOptionPane.showMessageDialog(null, "Silme Başarılı");
-            refreshTable(islemler.Ara(text));
-            clearTextBox();
+            if (personel_araText.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Lütfen aranacak kelimeyi giriniz.");
+            } else {
+                PersonelIslemler islemler = new PersonelIslemler();
+                refreshTable(islemler.Ara(text));
+                clearTextBox();
+            }
         } catch (Exception e) {
         }
     }//GEN-LAST:event_personel_araActionPerformed

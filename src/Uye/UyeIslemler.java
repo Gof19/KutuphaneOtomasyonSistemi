@@ -20,10 +20,7 @@ public class UyeIslemler implements IUyeIslemleri {
             statement.setInt(3, uye.getTel());
             statement.setString(4, uye.getMail());
             statement.setInt(5, uye.getOkitap());
-
             int result = statement.executeUpdate();
-            //refreshTable();
-
         } catch (SQLException exception) {
             DbHelper.showErrorMessage(exception);
         } finally {

@@ -26,6 +26,7 @@ public class UyeIslemleriForm extends javax.swing.JFrame {
         uye_tel.setText("");
         uye_mail.setText("");
         uye_okitap.setText("");
+        uye_aratext.setText("");
     }
 
     public void refreshTable(ArrayList<Uye> array) {
@@ -98,6 +99,11 @@ public class UyeIslemleriForm extends javax.swing.JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        UyeTablo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                UyeTabloMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(UyeTablo);
@@ -248,24 +254,28 @@ public class UyeIslemleriForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void uye_guncelleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uye_guncelleActionPerformed
-        try {
-            int row = UyeTablo.getSelectedRow();
-            String value = (UyeTablo.getModel().getValueAt(row, 0).toString());
-            String ad = uye_ad.getText();
-            String soyad = uye_soyad.getText();
-            int tel = Integer.parseInt(uye_tel.getText().toString());
-            String mail = uye_mail.getText();
-            int okitap = Integer.parseInt(uye_okitap.getText().toString());
-            UyeIslemler islemler = new UyeIslemler();
-            Uye uye = new Uye(ad, soyad, tel, mail, okitap);
-            islemler.Güncelle(uye, Integer.parseInt(value));
-            DefaultTableModel model = (DefaultTableModel) UyeTablo.getModel();
-            model.setRowCount(0);
-            JOptionPane.showMessageDialog(null, "Güncelleme Başarılı");
-            refreshTable(this.getUye());
-            clearTextBox();
-        } catch (SQLException e) {
+        if (UyeTablo.getSelectionModel().isSelectionEmpty()) {
+            JOptionPane.showMessageDialog(null, "Lütfen satır seçiniz..");
+        } else {
+            try {
+                int row = UyeTablo.getSelectedRow();
+                String value = (UyeTablo.getModel().getValueAt(row, 0).toString());
+                String ad = uye_ad.getText();
+                String soyad = uye_soyad.getText();
+                int tel = Integer.parseInt(uye_tel.getText().toString());
+                String mail = uye_mail.getText();
+                int okitap = Integer.parseInt(uye_okitap.getText().toString());
+                UyeIslemler islemler = new UyeIslemler();
+                Uye uye = new Uye(ad, soyad, tel, mail, okitap);
+                islemler.Güncelle(uye, Integer.parseInt(value));
+                DefaultTableModel model = (DefaultTableModel) UyeTablo.getModel();
+                model.setRowCount(0);
+                JOptionPane.showMessageDialog(null, "Güncelleme Başarılı");
+                refreshTable(this.getUye());
+                clearTextBox();
+            } catch (SQLException e) {
 
+            }
         }
     }//GEN-LAST:event_uye_guncelleActionPerformed
 
@@ -276,41 +286,67 @@ public class UyeIslemleriForm extends javax.swing.JFrame {
             int tel = Integer.parseInt(uye_tel.getText().toString());
             String mail = uye_mail.getText();
             int okitap = Integer.parseInt(uye_okitap.getText().toString());
-            UyeIslemler islemler = new UyeIslemler();
-            Uye uye = new Uye(ad, soyad, tel, mail, okitap);
-            islemler.Ekle(uye);
-            JOptionPane.showMessageDialog(null, "Ekleme Başarılı");
-            refreshTable(this.getUye());
-            clearTextBox();
+            if (uye_ad.getText().isEmpty() || uye_soyad.getText().isEmpty() || uye_tel.getText().isEmpty() || uye_mail.getText().isEmpty() || uye_okitap.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Lütfen tüm alanları doldurunuz.");
+            } else {
+                UyeIslemler islemler = new UyeIslemler();
+                Uye uye = new Uye(ad, soyad, tel, mail, okitap);
+                islemler.Ekle(uye);
+                JOptionPane.showMessageDialog(null, "Ekleme Başarılı");
+                refreshTable(this.getUye());
+                clearTextBox();
+            }
         } catch (Exception e) {
 
         }
     }//GEN-LAST:event_uye_ekleActionPerformed
 
     private void uye_silActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uye_silActionPerformed
-        try {
-            int row = UyeTablo.getSelectedRow();
-            String value = (UyeTablo.getModel().getValueAt(row, 0).toString());
-            UyeIslemler islemler = new UyeIslemler();
-            islemler.Sil(Integer.parseInt(value));
-            DefaultTableModel model = (DefaultTableModel) UyeTablo.getModel();
-            model.setRowCount(0);
-            JOptionPane.showMessageDialog(null, "Silme Başarılı");
-            refreshTable(this.getUye());
-        } catch (Exception e) {
+        if (UyeTablo.getSelectionModel().isSelectionEmpty()) {
+            JOptionPane.showMessageDialog(null, "Lütfen satır seçiniz..");
+        } else {
+            try {
+                int row = UyeTablo.getSelectedRow();
+                String value = (UyeTablo.getModel().getValueAt(row, 0).toString());
+                UyeIslemler islemler = new UyeIslemler();
+                islemler.Sil(Integer.parseInt(value));
+                DefaultTableModel model = (DefaultTableModel) UyeTablo.getModel();
+                model.setRowCount(0);
+                JOptionPane.showMessageDialog(null, "Silme Başarılı");
+                refreshTable(this.getUye());
+            } catch (Exception e) {
+            }
         }
     }//GEN-LAST:event_uye_silActionPerformed
 
     private void uye_araActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uye_araActionPerformed
         try {
             String text = uye_aratext.getText();
-            UyeIslemler islemler = new UyeIslemler();
-            //JOptionPane.showMessageDialog(null, "Silme Başarılı");
-            refreshTable(islemler.Ara(text));
+            if (uye_aratext.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Lütfen aranacak kelimeyi giriniz.");
+            } else {
+                UyeIslemler islemler = new UyeIslemler();
+                refreshTable(islemler.Ara(text));
+                clearTextBox();
+            }
         } catch (Exception e) {
             System.out.println(e);
         }
     }//GEN-LAST:event_uye_araActionPerformed
+
+    private void UyeTabloMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UyeTabloMouseClicked
+        int row = UyeTablo.getSelectedRow();
+        String ad = (UyeTablo.getModel().getValueAt(row, 1).toString());
+        String soyad = (UyeTablo.getModel().getValueAt(row, 2).toString());
+        String tel = (UyeTablo.getModel().getValueAt(row, 3).toString());
+        String mail = (UyeTablo.getModel().getValueAt(row, 2).toString());
+        String oKitap = (UyeTablo.getModel().getValueAt(row, 3).toString());
+        uye_ad.setText(ad);
+        uye_soyad.setText(soyad);
+        uye_tel.setText(tel);
+        uye_mail.setText(mail);
+        uye_okitap.setText(oKitap);
+    }//GEN-LAST:event_UyeTabloMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
