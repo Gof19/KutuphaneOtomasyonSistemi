@@ -8,11 +8,11 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class PersonelIslemleri extends javax.swing.JFrame {
+public class PersonelIslemleriForm extends javax.swing.JFrame {
 
     DefaultTableModel model;
 
-    public PersonelIslemleri() {
+    public PersonelIslemleriForm() {
         try {
             initComponents();
             refreshTable(this.getPersonel());
@@ -367,24 +367,25 @@ public class PersonelIslemleri extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PersonelIslemleri.class
+            java.util.logging.Logger.getLogger(PersonelIslemleriForm.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PersonelIslemleri.class
+            java.util.logging.Logger.getLogger(PersonelIslemleriForm.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PersonelIslemleri.class
+            java.util.logging.Logger.getLogger(PersonelIslemleriForm.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PersonelIslemleri.class
+            java.util.logging.Logger.getLogger(PersonelIslemleriForm.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PersonelIslemleri().setVisible(true);
+                new PersonelIslemleriForm().setVisible(true);
 
             }
         });
