@@ -5,6 +5,7 @@ import Kitap.*;
 import KutuphaneOtomasyon.DbHelper;
 import java.sql.*;
 import java.util.ArrayList;
+import javax.swing.JComboBox;
 
 public class KitapIslemler implements IKitapIslemler {
 
@@ -23,7 +24,6 @@ public class KitapIslemler implements IKitapIslemler {
             statement.setString(4, kitap.getTur());
             statement.setString(5, kitap.getBarkod());
             statement.setString(6, kitap.getRafNo());
-
 
             int result = statement.executeUpdate();
             //refreshTable();
@@ -64,7 +64,7 @@ public class KitapIslemler implements IKitapIslemler {
 
     @Override
     public void Güncelle(Kitap kitap, int id) {
-        
+
         Connection connection = null;
         DbHelper DbHelper = new DbHelper();
         PreparedStatement statement = null;
@@ -72,8 +72,8 @@ public class KitapIslemler implements IKitapIslemler {
         try {
             //String url = "jdbc:mysql://localhost:5555/KutuphaneOtomasyon?useSSL=false&serverTimezone=UTC";
             connection = DbHelper.getConnection();
-             System.out.println(id);   
-            String query = "UPDATE kitap SET kitap_adi=?, kitap_yazari=?, kitap_yayinevi=?, kitap_turu=?, kitap_barkod=?, kitap_rafno=? WHERE kitap_id=" +id;
+            System.out.println(id);
+            String query = "UPDATE kitap SET kitap_adi=?, kitap_yazari=?, kitap_yayinevi=?, kitap_turu=?, kitap_barkod=?, kitap_rafno=? WHERE kitap_id=" + id;
             PreparedStatement pst = connection.prepareStatement(query);
             pst.setString(1, kitap.getAd());
             pst.setString(2, kitap.getYazar());
@@ -87,7 +87,7 @@ public class KitapIslemler implements IKitapIslemler {
             System.out.println(e);
         }
 
-       }
+    }
 
     @Override
     public ArrayList<Kitap> Ara(String text) {
@@ -120,8 +120,7 @@ public class KitapIslemler implements IKitapIslemler {
 
     @Override
     public ArrayList<Kitap> Listele() {
-        
-        
+
         Connection connection = null;
         DbHelper DbHelper = new DbHelper();
         Statement statement = null;
@@ -141,7 +140,6 @@ public class KitapIslemler implements IKitapIslemler {
                         resultSet.getString("kitap_turu"),
                         resultSet.getString("kitap_barkod"),
                         resultSet.getString("kitap_rafno")
-                        
                 ));
             }
         } catch (SQLException exception) {
@@ -150,4 +148,6 @@ public class KitapIslemler implements IKitapIslemler {
         return kitaplar;
     }
 
-}
+    
+
+    }

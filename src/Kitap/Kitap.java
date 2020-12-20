@@ -105,7 +105,7 @@ public class Kitap implements IKutuphaneKitap {
     @Override
     public String toString() {
         idlist.add(String.valueOf(this.id));
-        return this.adi + " " + this.id;
+        return this.barkod;
     }
     
     

@@ -4,6 +4,13 @@ import Uye.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
+import java.sql.ResultSet;
+import KutuphaneOtomasyon.DbHelper;
+import java.sql.Connection;
+import java.sql.Statement;
+import java.util.ArrayList;
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -19,8 +26,34 @@ public class KitapEmanetForm extends javax.swing.JFrame {
     /**
      * Creates new form KitapEmanet
      */
+    
+    
+    public void deneme (JComboBox cb,Kitap k ){
+    cb.addItem(k);
+    }
+            
     public KitapEmanetForm() {
         initComponents();
+        KitapIslemler kitapislem = new KitapIslemler();
+        ArrayList<Kitap> kitaplist = kitapislem.Listele();
+
+        UyeIslemler uyeislem = new UyeIslemler();
+        ArrayList<Uye> uyelist = uyeislem.Listele();
+        
+        
+
+        for (int i = 0; i < kitaplist.size(); i++) {
+            
+            Kitap temp = kitaplist.get(i);
+            var item = new Kitap(temp.getId(),temp.getAd(),temp.getYazar(),temp.getYayinevi(),temp.getTur(),temp.getBarkod(),temp.getRafNo());
+            
+            deneme(KitapCombobox,item);
+
+        }
+        for (int x = 0; x < uyelist.size(); x++) {
+
+            UyeCombobox.addItem(uyelist.get(x).toString());
+        }
     }
 
     /**
@@ -50,11 +83,12 @@ public class KitapEmanetForm extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         kitap_ad = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
+        kitap_yazar = new javax.swing.JTextField();
+        kitap_yayinevi = new javax.swing.JTextField();
+        kitap_turu = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         UyeCombobox = new javax.swing.JComboBox<>();
+        buton_getir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -139,11 +173,11 @@ public class KitapEmanetForm extends javax.swing.JFrame {
 
         kitap_ad.setText("jTextField4");
 
-        jTextField5.setText("jTextField5");
+        kitap_yazar.setText("jTextField5");
 
-        jTextField6.setText("jTextField6");
+        kitap_yayinevi.setText("jTextField6");
 
-        jTextField7.setText("jTextField7");
+        kitap_turu.setText("jTextField7");
 
         jButton1.setText("Emanet Ver");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -155,6 +189,13 @@ public class KitapEmanetForm extends javax.swing.JFrame {
         UyeCombobox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 UyeComboboxActionPerformed(evt);
+            }
+        });
+
+        buton_getir.setText("Getir");
+        buton_getir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buton_getirActionPerformed(evt);
             }
         });
 
@@ -187,9 +228,9 @@ public class KitapEmanetForm extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(kitap_ad, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(kitap_yazar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(kitap_yayinevi, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(kitap_turu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jLabel7)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(17, 17, 17)
@@ -197,17 +238,24 @@ public class KitapEmanetForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(UyeCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(136, 136, 136)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(KitapCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
-                        .addGap(86, 86, 86))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(136, 136, 136)
+                                .addComponent(jLabel2)
+                                .addGap(218, 218, 218))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(KitapCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(122, 122, 122))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18))))
+                        .addComponent(buton_getir)
+                        .addGap(300, 300, 300))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(68, 68, 68)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -224,9 +272,11 @@ public class KitapEmanetForm extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(36, 36, 36)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(KitapCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(UyeCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(UyeCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(KitapCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(buton_getir)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(6, 6, 6)
@@ -254,14 +304,14 @@ public class KitapEmanetForm extends javax.swing.JFrame {
                                     .addComponent(kitap_ad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(25, 25, 25)
                                 .addComponent(jLabel9))
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(kitap_yazar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel10)
-                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(kitap_yayinevi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(kitap_turu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel11))))
                 .addGap(42, 42, 42)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -278,21 +328,7 @@ public class KitapEmanetForm extends javax.swing.JFrame {
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
 
-        try {
-            KitapIslemler kitapislem = new KitapIslemler();
-            UyeIslemler uyeislem = new UyeIslemler();
-            for (int i = 0; i < kitapislem.Listele().size(); i++) {
-                KitapCombobox.addItem(kitapislem.Listele().get(i).toString());
-
-            }
-            for (int x = 0; x < uyeislem.Listele().size(); x++) {
-                
-                UyeCombobox.addItem(uyeislem.Listele().get(x).toString());
-            }
-        } catch (Exception e) {
-        }
-
-
+       
     }//GEN-LAST:event_formWindowActivated
 
 
@@ -302,43 +338,31 @@ public class KitapEmanetForm extends javax.swing.JFrame {
 
     private void KitapComboboxİtemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_KitapComboboxİtemStateChanged
 
-        KitapCombobox.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // Kitap kitap = (Kitap) KitapCombobox.getSelectedItem();
-                try {
-                    //kitap_ad.setText();
-                    System.out.println(KitapCombobox.getSelectedIndex());
-                } catch (Exception a) {
-                }
-
-            }
-        });
-
-        /*KitapCombobox.addActionListener(new ActionListener() {
-            
-            public void actionPerformed(ActionEvent e) {
-                
-                
-                
-                try {
-                    Kitap kitap = (Kitap) KitapCombobox.getSelectedItem();
-
-                    kitap_ad.setText("ddddddd");
-                } catch (Exception a) {
-                }
-            }
-        });*/
     }//GEN-LAST:event_KitapComboboxİtemStateChanged
 
 
     private void KitapComboboxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_KitapComboboxMouseClicked
 
-        
+
     }//GEN-LAST:event_KitapComboboxMouseClicked
 
     private void UyeComboboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UyeComboboxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_UyeComboboxActionPerformed
+
+        private void kitapinfo(Kitap k){
+            kitap_ad.setText(k.getAd());
+            kitap_yazar.setText(k.getYazar());
+            kitap_yayinevi.setText(k.getYayinevi());
+            kitap_turu.setText(k.getTur());
+            
+        }
+    private void buton_getirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buton_getirActionPerformed
+
+        kitapinfo((Kitap)KitapCombobox.getSelectedItem());
+        
+
+    }//GEN-LAST:event_buton_getirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -379,6 +403,7 @@ public class KitapEmanetForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> KitapCombobox;
     private javax.swing.JComboBox<String> UyeCombobox;
+    private javax.swing.JButton buton_getir;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -393,10 +418,10 @@ public class KitapEmanetForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField kitap_ad;
+    private javax.swing.JTextField kitap_turu;
+    private javax.swing.JTextField kitap_yayinevi;
+    private javax.swing.JTextField kitap_yazar;
     private javax.swing.JTextField uye_ad;
     private javax.swing.JTextField uye_soyad;
     private javax.swing.JTextField uye_tel;
