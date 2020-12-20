@@ -108,24 +108,30 @@
                       <EmptySpace min="-2" pref="114" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="UyeCombobox" min="-2" pref="147" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                      <Component id="KitapCombobox" min="-2" pref="149" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="buton_getir" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="169" max="-2" attributes="0"/>
+                      <Component id="emanet_sil" min="-2" pref="131" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="118" max="-2" attributes="0"/>
-                              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="UyeCombobox" alignment="0" min="-2" pref="147" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="KitapCombobox" min="-2" pref="149" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="buton_getir" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <Component id="jScrollPane1" min="-2" pref="560" max="-2" attributes="0"/>
                           <Component id="jLabel15" alignment="0" min="-2" pref="239" max="-2" attributes="0"/>
+                          <Component id="jScrollPane1" alignment="0" min="-2" pref="646" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -228,9 +234,17 @@
                       <Component id="jScrollPane1" min="-2" pref="376" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-              <Component id="emanet_ver" min="-2" pref="40" max="-2" attributes="0"/>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                      <Component id="emanet_ver" min="-2" pref="40" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                      <Component id="emanet_sil" min="-2" pref="42" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -246,17 +260,23 @@
         <Component class="javax.swing.JTable" name="EmanetTablo">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="6" rowCount="4">
+              <Table columnCount="7" rowCount="4">
+                <Column editable="false" title="Emanet ID" type="java.lang.Integer"/>
                 <Column editable="false" title="Uye Ad&#x131;" type="java.lang.String"/>
                 <Column editable="false" title="Uye Soyad&#x131;" type="java.lang.String"/>
                 <Column editable="false" title="Kitap Ad&#x131;" type="java.lang.String"/>
                 <Column editable="false" title="Kitap Yazar&#x131;" type="java.lang.String"/>
-                <Column editable="true" title="Kitap T&#xfc;r&#xfc;" type="java.lang.String"/>
+                <Column editable="false" title="Kitap T&#xfc;r&#xfc;" type="java.lang.String"/>
                 <Column editable="false" title="Teslim Tarihi" type="java.lang.String"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="0">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                   <Title/>
                   <Editor/>
@@ -459,6 +479,14 @@
         </Property>
         <Property name="text" type="java.lang.String" value="&#xdc;ye&amp;Kitap Se&#xe7;im"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="emanet_sil">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Sil"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="emanet_silActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
@@ -27,37 +28,27 @@ public class KitapEmanetForm extends javax.swing.JFrame {
         cbx.addItem(u);
     }
 
-    public void verigetir() {
+    public void refreshTable() {
         Connection connection = null;
         DbHelper DbHelper = new DbHelper();
         Statement statement = null;
         ArrayList<Kitap> kitaplar = null;
+        DeleteTable();
         try {
             connection = DbHelper.getConnection();
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM emanet INNER JOIN uye ON uye.uye_id = emanet.uye_id INNER JOIN kitap ON kitap.kitap_id = emanet.kitap_id");
             kitaplar = new ArrayList<Kitap>();
             while (resultSet.next()) {
+                String emanet_id = resultSet.getString("id");
                 String uye_ad = resultSet.getString("uye_ad");
                 String uye_soyad = resultSet.getString("uye_soyad");
                 String kitap_adi = resultSet.getString("kitap_adi");
                 String kitap_yazari = resultSet.getString("kitap_yazari");
                 String kitap_turu = resultSet.getString("kitap_turu");
-                System.out.print("Uye Ad: " + uye_ad);
-                System.out.print("Uye Soyad: " + uye_soyad);
-                System.out.print("Kitap Adı: " + kitap_adi);
-                System.out.println("Kitap Yazarı: " + kitap_yazari);
-                System.out.println("Kitap Turu: " + kitap_turu);
+                String teslim_tarih = resultSet.getString("teslim_tarih");
 
-                Object obj = uye_ad;
-                model = (DefaultTableModel) EmanetTablo.getModel();
-                ArrayList<String> emanet = new ArrayList<String>();
-                emanet.add(uye_ad);
-                emanet.add(uye_soyad);
-                emanet.add(kitap_adi);
-                emanet.add(kitap_yazari);
-                emanet.add(kitap_turu);
-                Object[] row = {uye_ad, uye_soyad, kitap_adi, kitap_yazari, kitap_turu};
+                Object[] row = {emanet_id, uye_ad, uye_soyad, kitap_adi, kitap_yazari, kitap_turu, teslim_tarih};
                 model.addRow(row);
             }
         } catch (SQLException exception) {
@@ -65,10 +56,14 @@ public class KitapEmanetForm extends javax.swing.JFrame {
         }
     }
 
-    public KitapEmanetForm() {
+    public void DeleteTable() {
+        model = (DefaultTableModel) EmanetTablo.getModel();
+        model.setRowCount(0);
+    }
 
+    public KitapEmanetForm() {
         initComponents();
-        verigetir();
+        refreshTable();
         KitapIslemler kitapislem = new KitapIslemler();
         ArrayList<Kitap> kitaplist = kitapislem.Listele();
         UyeIslemler uyeislem = new UyeIslemler();
@@ -82,19 +77,6 @@ public class KitapEmanetForm extends javax.swing.JFrame {
             Uye uy = uyelist.get(x);
             var items = new Uye(uy.getId(), uy.getAd(), uy.getSoyad(), uy.getTel(), uy.getMail(), uy.getOkitap());
             uyee(UyeCombobox, items);
-        }
-    }
-
-    public void refreshTable(ArrayList<Kitap> array) {
-        model = (DefaultTableModel) EmanetTablo.getModel();
-        model.setRowCount(0);
-        try {
-            ArrayList<Kitap> kitaplar = array;
-            for (Kitap kitap : kitaplar) {
-                Object[] row = {kitap.getId(), kitap.getAd(), kitap.getYazar(), kitap.getYayinevi(), kitap.getTur(), kitap.getBarkod(), kitap.getRafNo()};
-                model.addRow(row);
-            }
-        } catch (Exception e) {
         }
     }
 
@@ -135,6 +117,7 @@ public class KitapEmanetForm extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel15 = new javax.swing.JLabel();
+        emanet_sil = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -145,20 +128,20 @@ public class KitapEmanetForm extends javax.swing.JFrame {
 
         EmanetTablo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Uye Adı", "Uye Soyadı", "Kitap Adı", "Kitap Yazarı", "Kitap Türü", "Teslim Tarihi"
+                "Emanet ID", "Uye Adı", "Uye Soyadı", "Kitap Adı", "Kitap Yazarı", "Kitap Türü", "Teslim Tarihi"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true, false
+                false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -255,6 +238,13 @@ public class KitapEmanetForm extends javax.swing.JFrame {
         jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel15.setText("Üye&Kitap Seçim");
 
+        emanet_sil.setText("Sil");
+        emanet_sil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                emanet_silActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -320,22 +310,25 @@ public class KitapEmanetForm extends javax.swing.JFrame {
                                                 .addComponent(jLabel3)
                                                 .addGap(29, 29, 29)))))))
                         .addGap(114, 114, 114)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(UyeCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29)
-                        .addComponent(KitapCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(buton_getir)
-                        .addGap(169, 169, 169))
+                        .addComponent(emanet_sil, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(118, 118, 118)
-                                .addComponent(jLabel2))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(UyeCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(29, 29, 29)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(KitapCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(buton_getir))
+                                    .addComponent(jLabel2)))
+                            .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 646, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
@@ -413,8 +406,13 @@ public class KitapEmanetForm extends javax.swing.JFrame {
                             .addComponent(buton_getir))
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(21, 21, 21)
-                .addComponent(emanet_ver, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(emanet_ver, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(emanet_sil, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -437,7 +435,7 @@ public class KitapEmanetForm extends javax.swing.JFrame {
             statement.setString(2, String.valueOf(kitapid));
             statement.setString(3, String.valueOf(teslim));
             int result = statement.executeUpdate();
-            verigetir();
+            refreshTable();
         } catch (SQLException exception) {
             DbHelper.showErrorMessage(exception);
         }
@@ -494,6 +492,38 @@ public class KitapEmanetForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_uye_adActionPerformed
 
+    private void emanet_silActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emanet_silActionPerformed
+        if (EmanetTablo.getSelectionModel().isSelectionEmpty()) {
+            JOptionPane.showMessageDialog(null, "Lütfen satır seçiniz..");
+        } else {
+            try {
+                int row = EmanetTablo.getSelectedRow();
+                String value = (EmanetTablo.getModel().getValueAt(row, 0).toString());
+                Connection connection = null;
+                DbHelper DbHelper = new DbHelper();
+                PreparedStatement statement = null;
+                try {
+                    connection = DbHelper.getConnection();
+                    String sql = "DELETE FROM emanet WHERE id = " + value;
+                    statement = connection.prepareStatement(sql);
+                    int result = statement.executeUpdate();
+
+                } catch (SQLException exception) {
+                    DbHelper.showErrorMessage(exception);
+                } finally {
+                    try {
+                        statement.close();
+                        connection.close();
+                        refreshTable();
+                    } catch (SQLException ex) {
+
+                    }
+                }
+            } catch (Exception e) {
+            }
+        }
+    }//GEN-LAST:event_emanet_silActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -536,6 +566,7 @@ public class KitapEmanetForm extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> KitapCombobox;
     private javax.swing.JComboBox<String> UyeCombobox;
     private javax.swing.JButton buton_getir;
+    private javax.swing.JButton emanet_sil;
     private javax.swing.JButton emanet_ver;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
