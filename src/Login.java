@@ -114,25 +114,29 @@ public class Login extends javax.swing.JFrame {
         DbHelper dbHelper = new DbHelper();
         Statement statement = null;
         try {
-            connection = dbHelper.getConnection();
-            statement = connection.createStatement();
-            String selectQuery = "select * from personel where personel_adi='" + username + "' and personel_password='" + password + "'";
-            ResultSet resultSet = statement.executeQuery(selectQuery);
-            if (resultSet.next()) {
-                boolean yetki = resultSet.getBoolean("personel_yetki");
-                if (yetki == true) {
-                    dispose();
-                    AdminPanel adminPanel = new AdminPanel(username);
-                    adminPanel.setVisible(true);
-                } else if (yetki == false) {
-                    dispose();
-                    PersonelPanel personelPanel = new PersonelPanel(username);
-                    personelPanel.setVisible(true);
-                }
+            if (Kullanici_Adi.getText().isEmpty() || Kullanici_Sifre.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Lütfen tüm alanları doldurunuz.");
             } else {
-                ErrorMessage.setText("*Kullanıcı adı veya şifre hatalı...");
-                Kullanici_Adi.setText("");
-                Kullanici_Sifre.setText("");
+                connection = dbHelper.getConnection();
+                statement = connection.createStatement();
+                String selectQuery = "select * from personel where personel_adi='" + username + "' and personel_password='" + password + "'";
+                ResultSet resultSet = statement.executeQuery(selectQuery);
+                if (resultSet.next()) {
+                    boolean yetki = resultSet.getBoolean("personel_yetki");
+                    if (yetki == true) {
+                        dispose();
+                        AdminPanel adminPanel = new AdminPanel(username);
+                        adminPanel.setVisible(true);
+                    } else if (yetki == false) {
+                        dispose();
+                        PersonelPanel personelPanel = new PersonelPanel(username);
+                        personelPanel.setVisible(true);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Kullanıcı adı veya şifre hatalı...");
+                    Kullanici_Adi.setText("");
+                    Kullanici_Sifre.setText("");
+                }
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());

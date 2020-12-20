@@ -80,7 +80,7 @@ public class KitapIslemleriForm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Kitap İşlemleri");
-        setLocation(new java.awt.Point(400, 50));
+        setLocation(new java.awt.Point(450, 50));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);

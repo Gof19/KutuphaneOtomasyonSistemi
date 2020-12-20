@@ -73,6 +73,7 @@ public class UyeIslemleriForm extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Üye İşlemleri");
         setLocation(new java.awt.Point(350, 100));
 
         UyeTablo.setModel(new javax.swing.table.DefaultTableModel(

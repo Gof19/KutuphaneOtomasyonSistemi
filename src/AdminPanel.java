@@ -55,7 +55,7 @@ public class AdminPanel extends javax.swing.JFrame {
             }
         });
 
-        Logout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/logout_red.png"))); // NOI18N
+        Logout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Emanet.png"))); // NOI18N
         Logout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 LogoutActionPerformed(evt);

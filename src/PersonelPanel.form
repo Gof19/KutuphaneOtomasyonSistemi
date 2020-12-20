@@ -35,7 +35,7 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="UyeIslemleri" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="EmanetIslem" min="-2" max="-2" attributes="0"/>
+                      <Component id="EmanetIslem" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <EmptySpace max="32767" attributes="0"/>
@@ -57,10 +57,10 @@
                   <Component id="jButton2" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="EmanetIslem" min="-2" max="-2" attributes="0"/>
-                  <Component id="UyeIslemleri" min="-2" max="-2" attributes="0"/>
-                  <Component id="KitapIslemleri" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="UyeIslemleri" max="32767" attributes="0"/>
+                  <Component id="KitapIslemleri" max="32767" attributes="0"/>
+                  <Component id="EmanetIslem" max="32767" attributes="0"/>
               </Group>
               <EmptySpace pref="50" max="32767" attributes="0"/>
           </Group>
@@ -91,7 +91,7 @@
     <Component class="javax.swing.JButton" name="EmanetIslem">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Icons/logout_red.png"/>
+          <Image iconType="3" name="/Icons/Emanet.png"/>
         </Property>
       </Properties>
       <Events>

@@ -61,6 +61,19 @@ public class KitapEmanetForm extends javax.swing.JFrame {
         model.setRowCount(0);
     }
 
+    public void ClearTextBox() {
+        kitap_id.setText("");
+        kitap_ad.setText("");
+        kitap_yazar.setText("");
+        kitap_yayinevi.setText("");
+        kitap_turu.setText("");
+        uye_id.setText("");
+        uye_ad.setText("");
+        uye_soyad.setText("");
+        uye_tel.setText("");
+        teslim_tarihi.setText("2020-12-20");
+    }
+
     public KitapEmanetForm() {
         initComponents();
         refreshTable();
@@ -120,6 +133,8 @@ public class KitapEmanetForm extends javax.swing.JFrame {
         emanet_sil = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Kitap Emanet");
+        setLocation(new java.awt.Point(300, 100));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -428,25 +443,27 @@ public class KitapEmanetForm extends javax.swing.JFrame {
             String uyeid = uye_id.getText();
             String kitapid = kitap_id.getText();
             String teslim = teslim_tarihi.getText();
-            connection = DbHelper.getConnection();
-            String sql = "insert into emanet (uye_id, kitap_id, teslim_tarih) values(?,?,?)";
-            statement = connection.prepareStatement(sql);
-            statement.setString(1, String.valueOf(uyeid));
-            statement.setString(2, String.valueOf(kitapid));
-            statement.setString(3, String.valueOf(teslim));
-            int result = statement.executeUpdate();
-            refreshTable();
+            if (uye_id.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Lütfen tüm alanları doldurunuz.");
+            } else {
+                connection = DbHelper.getConnection();
+                String sql = "insert into emanet (uye_id, kitap_id, teslim_tarih) values(?,?,?)";
+                statement = connection.prepareStatement(sql);
+                statement.setString(1, String.valueOf(uyeid));
+                statement.setString(2, String.valueOf(kitapid));
+                statement.setString(3, String.valueOf(teslim));
+                int result = statement.executeUpdate();
+                refreshTable();
+                ClearTextBox();
+            }
         } catch (SQLException exception) {
             DbHelper.showErrorMessage(exception);
         }
     }//GEN-LAST:event_emanet_verActionPerformed
 
-
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
 
-
     }//GEN-LAST:event_formWindowActivated
-
 
     private void KitapComboboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KitapComboboxActionPerformed
 
@@ -515,6 +532,7 @@ public class KitapEmanetForm extends javax.swing.JFrame {
                         statement.close();
                         connection.close();
                         refreshTable();
+                        ClearTextBox();
                     } catch (SQLException ex) {
 
                     }
