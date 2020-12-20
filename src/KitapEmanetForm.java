@@ -7,6 +7,8 @@ import java.awt.event.ItemListener;
 import java.sql.ResultSet;
 import KutuphaneOtomasyon.DbHelper;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JComboBox;
@@ -26,15 +28,14 @@ public class KitapEmanetForm extends javax.swing.JFrame {
     /**
      * Creates new form KitapEmanet
      */
-    
-    
-    public void deneme (JComboBox cb,Kitap k ){
-    cb.addItem(k);
+    public void deneme(JComboBox cb, Kitap k) {
+        cb.addItem(k);
     }
-    public void uyee (JComboBox cbx,Uye u ){
-    cbx.addItem(u);
+
+    public void uyee(JComboBox cbx, Uye u) {
+        cbx.addItem(u);
     }
-            
+
     public KitapEmanetForm() {
         initComponents();
         KitapIslemler kitapislem = new KitapIslemler();
@@ -42,23 +43,21 @@ public class KitapEmanetForm extends javax.swing.JFrame {
 
         UyeIslemler uyeislem = new UyeIslemler();
         ArrayList<Uye> uyelist = uyeislem.Listele();
-        
-        
 
         for (int i = 0; i < kitaplist.size(); i++) {
-            
+
             Kitap temp = kitaplist.get(i);
-            var item = new Kitap(temp.getId(),temp.getAd(),temp.getYazar(),temp.getYayinevi(),temp.getTur(),temp.getBarkod(),temp.getRafNo());
-            
-            deneme(KitapCombobox,item);
+            var item = new Kitap(temp.getId(), temp.getAd(), temp.getYazar(), temp.getYayinevi(), temp.getTur(), temp.getBarkod(), temp.getRafNo());
+
+            deneme(KitapCombobox, item);
 
         }
         for (int x = 0; x < uyelist.size(); x++) {
-            
+
             Uye uy = uyelist.get(x);
-            var items = new Uye(uy.getId(),uy.getAd(),uy.getSoyad(),uy.getTel(),uy.getMail(),uy.getOkitap());
-            uyee(UyeCombobox,items);
-            
+            var items = new Uye(uy.getId(), uy.getAd(), uy.getSoyad(), uy.getTel(), uy.getMail(), uy.getOkitap());
+            uyee(UyeCombobox, items);
+
         }
     }
 
@@ -92,9 +91,14 @@ public class KitapEmanetForm extends javax.swing.JFrame {
         kitap_yazar = new javax.swing.JTextField();
         kitap_yayinevi = new javax.swing.JTextField();
         kitap_turu = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        emanet_ver = new javax.swing.JButton();
         UyeCombobox = new javax.swing.JComboBox<>();
         buton_getir = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        uye_id = new javax.swing.JTextField();
+        kitap_id = new javax.swing.JTextField();
+        teslim_tarihi = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -185,10 +189,10 @@ public class KitapEmanetForm extends javax.swing.JFrame {
 
         kitap_turu.setText("jTextField7");
 
-        jButton1.setText("Emanet Ver");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        emanet_ver.setText("Emanet Ver");
+        emanet_ver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                emanet_verActionPerformed(evt);
             }
         });
 
@@ -205,43 +209,67 @@ public class KitapEmanetForm extends javax.swing.JFrame {
             }
         });
 
+        jLabel12.setText("Üye ID");
+
+        jLabel13.setText("Kitap ID");
+
+        uye_id.setText("jTextField1");
+
+        kitap_id.setText("jTextField1");
+
+        teslim_tarihi.setText("jFormattedTextField1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(8, 8, 8)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel4)
-                                .addComponent(jLabel5)
-                                .addComponent(jLabel6))
-                            .addGap(37, 37, 37)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(uye_ad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(uye_soyad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(uye_tel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel10)
-                                    .addComponent(jLabel9)
-                                    .addComponent(jLabel8)
-                                    .addComponent(jLabel11))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(kitap_ad, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(kitap_yazar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(kitap_yayinevi, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(kitap_turu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jLabel7)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(jLabel3)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
+                        .addGap(28, 28, 28)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(8, 8, 8)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(7, 7, 7)
+                                        .addComponent(jLabel3))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(jLabel4)
+                                                .addComponent(jLabel5)
+                                                .addComponent(jLabel6))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(24, 24, 24)
+                                                .addComponent(jLabel12)))
+                                        .addGap(37, 37, 37)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(uye_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(uye_ad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(uye_soyad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(uye_tel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel10)
+                                        .addComponent(jLabel9)
+                                        .addComponent(jLabel11)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel13)
+                                            .addComponent(jLabel8)))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(kitap_ad, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(kitap_yazar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(kitap_yayinevi, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(kitap_turu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(kitap_id, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jLabel7))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(94, 94, 94)
+                        .addComponent(teslim_tarihi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 126, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -264,18 +292,18 @@ public class KitapEmanetForm extends javax.swing.JFrame {
                         .addGap(300, 300, 300))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(68, 68, 68)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(emanet_ver, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
                         .addGap(36, 36, 36)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(UyeCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -285,32 +313,42 @@ public class KitapEmanetForm extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
+                        .addGap(28, 28, 28)
+                        .addComponent(jLabel3)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel12)
+                            .addComponent(uye_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(11, 11, 11)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(27, 27, 27)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(uye_ad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel4))
-                                        .addGap(27, 27, 27)
-                                        .addComponent(uye_soyad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel5))
-                                .addGap(26, 26, 26)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(uye_tel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel6))
-                                .addGap(49, 49, 49)
+                                    .addComponent(uye_ad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4))
+                                .addGap(27, 27, 27)
+                                .addComponent(uye_soyad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel5))
+                        .addGap(26, 26, 26)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(uye_tel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6))
+                        .addGap(15, 15, 15)
+                        .addComponent(teslim_tarihi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jLabel7)
-                                .addGap(25, 25, 25)
+                                .addGap(3, 3, 3)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel13)
+                                    .addComponent(kitap_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel8)
                                     .addComponent(kitap_ad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(25, 25, 25)
                                 .addComponent(jLabel9))
-                            .addComponent(kitap_yazar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(kitap_yazar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel10)
@@ -320,21 +358,42 @@ public class KitapEmanetForm extends javax.swing.JFrame {
                             .addComponent(kitap_turu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel11))))
                 .addGap(42, 42, 42)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(emanet_ver, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void emanet_verActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emanet_verActionPerformed
+
+        Connection connection = null;
+        DbHelper DbHelper = new DbHelper();
+        PreparedStatement statement = null;
+        try {
+            String uyeid = uye_id.getText();
+            String kitapid = kitap_id.getText();
+            String teslim = teslim_tarihi.getText();
+            connection = DbHelper.getConnection();
+            String sql = "insert into emanet (uye_id, kitap_id, teslim_tarih) values(?,?,?)";
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, String.valueOf(uyeid));
+            statement.setString(2, String.valueOf(kitapid));
+            statement.setString(3, String.valueOf(teslim));
+
+            int result = statement.executeUpdate();
+            //refreshTable();
+
+        } catch (SQLException exception) {
+            DbHelper.showErrorMessage(exception);
+        }
+
+    }//GEN-LAST:event_emanet_verActionPerformed
 
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
 
-       
+
     }//GEN-LAST:event_formWindowActivated
 
 
@@ -356,28 +415,29 @@ public class KitapEmanetForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_UyeComboboxActionPerformed
 
-        private void kitapinfo(Kitap k){
-            kitap_ad.setText(k.getAd());
-            kitap_yazar.setText(k.getYazar());
-            kitap_yayinevi.setText(k.getYayinevi());
-            kitap_turu.setText(k.getTur());
-            
-        }
-        
-        private void uyeinfo(Uye u){
-            
-            uye_ad.setText(u.getAd());
-            uye_soyad.setText(u.getSoyad());
-            uye_tel.setText(String.valueOf(u.getTel()));
-            
-           ;
-            
-        }
+    private void kitapinfo(Kitap k) {
+        kitap_id.setText(String.valueOf(k.getId()));
+        kitap_ad.setText(k.getAd());
+        kitap_yazar.setText(k.getYazar());
+        kitap_yayinevi.setText(k.getYayinevi());
+        kitap_turu.setText(k.getTur());
+
+    }
+
+    private void uyeinfo(Uye u) {
+
+        uye_id.setText(String.valueOf(u.getId()));
+        uye_ad.setText(u.getAd());
+        uye_soyad.setText(u.getSoyad());
+        uye_tel.setText(String.valueOf(u.getTel()));
+        ;
+
+    }
     private void buton_getirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buton_getirActionPerformed
 
-        kitapinfo((Kitap)KitapCombobox.getSelectedItem());
-        uyeinfo((Uye)UyeCombobox.getSelectedItem());
-        
+        kitapinfo((Kitap) KitapCombobox.getSelectedItem());
+        uyeinfo((Uye) UyeCombobox.getSelectedItem());
+
 
     }//GEN-LAST:event_buton_getirActionPerformed
 
@@ -421,10 +481,12 @@ public class KitapEmanetForm extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> KitapCombobox;
     private javax.swing.JComboBox<String> UyeCombobox;
     private javax.swing.JButton buton_getir;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton emanet_ver;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -436,10 +498,13 @@ public class KitapEmanetForm extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField kitap_ad;
+    private javax.swing.JTextField kitap_id;
     private javax.swing.JTextField kitap_turu;
     private javax.swing.JTextField kitap_yayinevi;
     private javax.swing.JTextField kitap_yazar;
+    private javax.swing.JFormattedTextField teslim_tarihi;
     private javax.swing.JTextField uye_ad;
+    private javax.swing.JTextField uye_id;
     private javax.swing.JTextField uye_soyad;
     private javax.swing.JTextField uye_tel;
     // End of variables declaration//GEN-END:variables
