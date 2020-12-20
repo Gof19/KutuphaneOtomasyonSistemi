@@ -107,5 +107,4 @@ public class Kitap implements IKutuphaneKitap {
         idlist.add(String.valueOf(this.id));
         return this.barkod;
     }
-
 }
