@@ -1,7 +1,10 @@
 package Kitap;
 
+import java.util.ArrayList;
+
 public class Kitap implements IKutuphaneKitap {
 
+    public static ArrayList<String> idlist = new ArrayList<String>();
     private int id;
     private String adi;
     private String yazar;
@@ -99,4 +102,11 @@ public class Kitap implements IKutuphaneKitap {
         this.tur = tur;
     }
 
+    @Override
+    public String toString() {
+        idlist.add(String.valueOf(this.id));
+        return this.adi + " " + this.id;
+    }
+    
+    
 }
