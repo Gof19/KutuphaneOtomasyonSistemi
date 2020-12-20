@@ -102,20 +102,16 @@ public class PersonelPanel extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void EmanetIslemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmanetIslemActionPerformed
-        
         KitapEmanetForm emanet = new KitapEmanetForm();
         emanet.setVisible(true);
     }//GEN-LAST:event_EmanetIslemActionPerformed
 
     private void KitapIslemleriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KitapIslemleriActionPerformed
-
-        
         KitapIslemleriForm kitapislemleri = new KitapIslemleriForm();
         kitapislemleri.setVisible(true);
     }//GEN-LAST:event_KitapIslemleriActionPerformed
 
     private void UyeIslemleriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UyeIslemleriActionPerformed
-        
         UyeIslemleriForm uyeislemleri = new UyeIslemleriForm();
         uyeislemleri.setVisible(true);
     }//GEN-LAST:event_UyeIslemleriActionPerformed

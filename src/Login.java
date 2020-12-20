@@ -96,17 +96,11 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginActionPerformed
-        /*
-       dispose();
-       Anasayfa anasayfa=new Anasayfa();
-       anasayfa.setVisible(true);
-         */
         String username = Kullanici_Adi.getText();
         String password = Kullanici_Sifre.getText();
         Connection connection = null;
         DbHelper dbHelper = new DbHelper();
         Statement statement = null;
-        //ResultSet resultSet = new ResultSet();
 
         try {
             connection = dbHelper.getConnection();

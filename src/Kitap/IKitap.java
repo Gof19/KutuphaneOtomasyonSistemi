@@ -9,15 +9,13 @@ public interface IKitap {
     String getYazar();
 
     void setYazar(String yazar);
-    
+
     String getYayinevi();
 
     void setYayinevi(String yayinevi);
-    
+
     String getTur();
 
     void setTur(String tur);
 
 }
-
-

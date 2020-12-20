@@ -24,10 +24,7 @@ public class KitapIslemler implements IKitapIslemler {
             statement.setString(4, kitap.getTur());
             statement.setString(5, kitap.getBarkod());
             statement.setString(6, kitap.getRafNo());
-
             int result = statement.executeUpdate();
-            //refreshTable();
-
         } catch (SQLException exception) {
             DbHelper.showErrorMessage(exception);
         } finally {
@@ -70,7 +67,6 @@ public class KitapIslemler implements IKitapIslemler {
         PreparedStatement statement = null;
         //Personel Güncelle
         try {
-            //String url = "jdbc:mysql://localhost:5555/KutuphaneOtomasyon?useSSL=false&serverTimezone=UTC";
             connection = DbHelper.getConnection();
             System.out.println(id);
             String query = "UPDATE kitap SET kitap_adi=?, kitap_yazari=?, kitap_yayinevi=?, kitap_turu=?, kitap_barkod=?, kitap_rafno=? WHERE kitap_id=" + id;
@@ -86,7 +82,6 @@ public class KitapIslemler implements IKitapIslemler {
         } catch (Exception e) {
             System.out.println(e);
         }
-
     }
 
     @Override
@@ -120,11 +115,9 @@ public class KitapIslemler implements IKitapIslemler {
 
     @Override
     public ArrayList<Kitap> Listele() {
-
         Connection connection = null;
         DbHelper DbHelper = new DbHelper();
         Statement statement = null;
-        //ResultSet ResultSet = new ResultSet();
         ArrayList<Kitap> kitaplar = null;
         try {
             connection = DbHelper.getConnection();
@@ -148,4 +141,3 @@ public class KitapIslemler implements IKitapIslemler {
         return kitaplar;
     }
 }
-   

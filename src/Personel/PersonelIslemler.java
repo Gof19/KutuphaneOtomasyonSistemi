@@ -19,10 +19,7 @@ public class PersonelIslemler implements IPersonelIslemler {
             statement.setString(2, personel.getSoyad());
             statement.setString(3, personel.getParola());
             statement.setBoolean(4, personel.getYetki());
-
             int result = statement.executeUpdate();
-            //refreshTable();
-
         } catch (SQLException exception) {
             DbHelper.showErrorMessage(exception);
         } finally {
@@ -30,7 +27,6 @@ public class PersonelIslemler implements IPersonelIslemler {
                 statement.close();
                 connection.close();
             } catch (SQLException ex) {
-
             }
         }
     }
@@ -52,7 +48,6 @@ public class PersonelIslemler implements IPersonelIslemler {
                 statement.close();
                 connection.close();
             } catch (SQLException ex) {
-
             }
         }
     }
@@ -65,9 +60,7 @@ public class PersonelIslemler implements IPersonelIslemler {
         PreparedStatement statement = null;
         //Personel Güncelle
         try {
-            String url = "jdbc:mysql://localhost:5555/KutuphaneOtomasyon?useSSL=false&serverTimezone=UTC";
             connection = DbHelper.getConnection();
-
             String query = "UPDATE personel SET personel_adi=?, personel_soyadi=?, personel_password=?, personel_yetki=? where id=" + id;
             PreparedStatement pst = connection.prepareStatement(query);
             pst.setString(1, personel.getAd());
@@ -78,7 +71,6 @@ public class PersonelIslemler implements IPersonelIslemler {
 
         } catch (Exception e) {
         }
-
     }
 
     @Override
@@ -114,7 +106,6 @@ public class PersonelIslemler implements IPersonelIslemler {
         Connection connection = null;
         DbHelper DbHelper = new DbHelper();
         Statement statement = null;
-        //ResultSet ResultSet = new ResultSet();
         ArrayList<Personel> personels = null;
         try {
             connection = DbHelper.getConnection();
@@ -135,5 +126,4 @@ public class PersonelIslemler implements IPersonelIslemler {
         }
         return personels;
     }
-
 }

@@ -63,9 +63,7 @@ public class UyeIslemler implements IUyeIslemleri {
         PreparedStatement statement = null;
         //uye Güncelle
         try {
-            //String url = "jdbc:mysql://localhost:5555/KutuphaneOtomasyon?useSSL=false&serverTimezone=UTC";
             connection = DbHelper.getConnection();
-
             String query = "UPDATE uye SET uye_ad=?, uye_soyad=?, uye_tel=?, uye_mail=?, uye_okitap=? where uye_id=" + id;
             PreparedStatement pst = connection.prepareStatement(query);
             pst.setString(1, uye.getAd());
@@ -74,14 +72,12 @@ public class UyeIslemler implements IUyeIslemleri {
             pst.setString(4, uye.getMail());
             pst.setInt(5, uye.getOkitap());
             pst.executeUpdate();
-
         } catch (Exception e) {
         }
     }
 
     @Override
     public ArrayList<Uye> Ara(String text) {
-
         Connection connection = null;
         DbHelper DbHelper = new DbHelper();
         Statement statement = null;
@@ -113,7 +109,6 @@ public class UyeIslemler implements IUyeIslemleri {
         Connection connection = null;
         DbHelper DbHelper = new DbHelper();
         Statement statement = null;
-        //ResultSet ResultSet = new ResultSet();
         ArrayList<Uye> uyes = null;
         try {
             connection = DbHelper.getConnection();

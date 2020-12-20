@@ -1,9 +1,7 @@
-
 package Kitap;
 
-
 public interface IKutuphaneKitap extends IKitap {
-    
+
     int getId();
 
     void setId(int id);
@@ -15,5 +13,5 @@ public interface IKutuphaneKitap extends IKitap {
     String getRafNo();
 
     void setRafNo(String rafNo);
-    
+
 }
