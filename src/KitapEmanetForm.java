@@ -31,6 +31,9 @@ public class KitapEmanetForm extends javax.swing.JFrame {
     public void deneme (JComboBox cb,Kitap k ){
     cb.addItem(k);
     }
+    public void uyee (JComboBox cbx,Uye u ){
+    cbx.addItem(u);
+    }
             
     public KitapEmanetForm() {
         initComponents();
@@ -51,8 +54,11 @@ public class KitapEmanetForm extends javax.swing.JFrame {
 
         }
         for (int x = 0; x < uyelist.size(); x++) {
-
-            UyeCombobox.addItem(uyelist.get(x).toString());
+            
+            Uye uy = uyelist.get(x);
+            var items = new Uye(uy.getId(),uy.getAd(),uy.getSoyad(),uy.getTel(),uy.getMail(),uy.getOkitap());
+            uyee(UyeCombobox,items);
+            
         }
     }
 
@@ -357,9 +363,20 @@ public class KitapEmanetForm extends javax.swing.JFrame {
             kitap_turu.setText(k.getTur());
             
         }
+        
+        private void uyeinfo(Uye u){
+            
+            uye_ad.setText(u.getAd());
+            uye_soyad.setText(u.getSoyad());
+            uye_tel.setText(String.valueOf(u.getTel()));
+            
+           ;
+            
+        }
     private void buton_getirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buton_getirActionPerformed
 
         kitapinfo((Kitap)KitapCombobox.getSelectedItem());
+        uyeinfo((Uye)UyeCombobox.getSelectedItem());
         
 
     }//GEN-LAST:event_buton_getirActionPerformed
