@@ -13,6 +13,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -25,6 +26,8 @@ import javax.swing.JOptionPane;
  */
 public class KitapEmanetForm extends javax.swing.JFrame {
 
+    DefaultTableModel model;
+
     /**
      * Creates new form KitapEmanet
      */
@@ -36,8 +39,44 @@ public class KitapEmanetForm extends javax.swing.JFrame {
         cbx.addItem(u);
     }
 
+    public void verigetir() {
+
+        Connection connection = null;
+        DbHelper DbHelper = new DbHelper();
+        Statement statement = null;
+        //ResultSet ResultSet = new ResultSet();
+        ArrayList<Kitap> kitaplar = null;
+        try {
+            connection = DbHelper.getConnection();
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM emanet INNER JOIN uye ON uye.uye_id = emanet.uye_id INNER JOIN kitap ON kitap.kitap_id = emanet.kitap_id");
+            kitaplar = new ArrayList<Kitap>();
+            while (resultSet.next()) {
+                
+                       int a = resultSet.getInt("kitap_id");
+                     String b =   resultSet.getString("kitap_adi");
+                      String c =  resultSet.getString("kitap_yazari");
+                      String d =  resultSet.getString("kitap_yayinevi");
+                     String e =   resultSet.getString("kitap_turu");
+                      String f =  resultSet.getString("kitap_barkod");
+                     String g =   resultSet.getString("kitap_rafno");
+                        
+                System.out.print("ID: " + a);
+                System.out.print(", Yas: " + b);
+                System.out.print(", Adı: " + c);
+                System.out.println(", Soyadı: " + d);
+                
+            }
+        } catch (SQLException exception) {
+            DbHelper.showErrorMessage(exception);
+        }
+
+    }
+
     public KitapEmanetForm() {
+        
         initComponents();
+        verigetir();
         KitapIslemler kitapislem = new KitapIslemler();
         ArrayList<Kitap> kitaplist = kitapislem.Listele();
 
@@ -61,6 +100,19 @@ public class KitapEmanetForm extends javax.swing.JFrame {
         }
     }
 
+    public void refreshTable(ArrayList<Kitap> array) {
+        model = (DefaultTableModel) EmanetTablo.getModel();
+        model.setRowCount(0);
+        try {
+            ArrayList<Kitap> kitaplar = array;
+            for (Kitap kitap : kitaplar) {
+                Object[] row = {kitap.getId(), kitap.getAd(), kitap.getYazar(), kitap.getYayinevi(), kitap.getTur(), kitap.getBarkod(), kitap.getRafNo()};
+                model.addRow(row);
+            }
+        } catch (Exception e) {
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -71,7 +123,7 @@ public class KitapEmanetForm extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        EmanetTablo = new javax.swing.JTable();
         KitapCombobox = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -111,7 +163,7 @@ public class KitapEmanetForm extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        EmanetTablo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -137,7 +189,7 @@ public class KitapEmanetForm extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(EmanetTablo);
 
         KitapCombobox.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -216,6 +268,7 @@ public class KitapEmanetForm extends javax.swing.JFrame {
         jLabel13.setText("Kitap ID");
 
         teslim_tarihi.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("y-MM-d"))));
+        teslim_tarihi.setText("2020-12-20");
 
         jLabel14.setText("Teslim Tarihi");
 
@@ -398,8 +451,8 @@ public class KitapEmanetForm extends javax.swing.JFrame {
             String kitapid = kitap_id.getText();
             String teslim = teslim_tarihi.getText();
             System.out.println(teslim);
-            
-            connection = DbHelper.getConnection();/*
+
+            connection = DbHelper.getConnection();
             String sql = "insert into emanet (uye_id, kitap_id, teslim_tarih) values(?,?,?)";
             statement = connection.prepareStatement(sql);
             statement.setString(1, String.valueOf(uyeid));
@@ -407,7 +460,7 @@ public class KitapEmanetForm extends javax.swing.JFrame {
             statement.setString(3, String.valueOf(teslim));
 
             int result = statement.executeUpdate();
-            //refreshTable();*/
+            //refreshTable();
 
         } catch (SQLException exception) {
             DbHelper.showErrorMessage(exception);
@@ -491,13 +544,17 @@ public class KitapEmanetForm extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(KitapEmanetForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(KitapEmanetForm.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(KitapEmanetForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(KitapEmanetForm.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(KitapEmanetForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(KitapEmanetForm.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(KitapEmanetForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(KitapEmanetForm.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -511,6 +568,7 @@ public class KitapEmanetForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable EmanetTablo;
     private javax.swing.JComboBox<String> KitapCombobox;
     private javax.swing.JComboBox<String> UyeCombobox;
     private javax.swing.JButton buton_getir;
@@ -533,7 +591,6 @@ public class KitapEmanetForm extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField kitap_ad;
     private javax.swing.JTextField kitap_id;
     private javax.swing.JTextField kitap_turu;

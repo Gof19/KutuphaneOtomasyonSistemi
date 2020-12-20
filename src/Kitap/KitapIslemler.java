@@ -147,7 +147,5 @@ public class KitapIslemler implements IKitapIslemler {
         }
         return kitaplar;
     }
-
-    
-
-    }
+}
+   

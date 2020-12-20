@@ -1,11 +1,10 @@
-
 package Emanet;
 
 import java.util.ArrayList;
 
 public interface IEmanetIslemler {
-    
-     void Ekle(Emanet emanet);
+
+    void Ekle(Emanet emanet);
 
     void Sil(int id);
 
@@ -14,5 +13,5 @@ public interface IEmanetIslemler {
     ArrayList<Emanet> Ara(String text);
 
     ArrayList<Emanet> Listele();
-    
+
 }
